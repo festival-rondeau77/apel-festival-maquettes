@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repères</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Vitrine (identique pour les 5 maquettes) ---------- */
+:root{
+  --vitrine-fond:#E9EBEF; --vitrine-encre:#171F2B; --vitrine-gris:#5D6878; --vitrine-trait:#CFD5DE;
+  --accent:#003473;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:58px;line-height:1;color:var(--accent);letter-spacing:-.01em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;justify-content:flex-start;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:22px;letter-spacing:.01em}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:3px}
+.cadre{width:414px;height:868px;border-radius:52px;background:#10141B;padding:12px;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.ecran{width:390px;height:844px;border-radius:41px;overflow:hidden;position:relative}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.statut{flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:600;letter-spacing:.01em}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;opacity:.35}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:42px}}
+
+/* ---------- Repères : signalétique de bâtiment ---------- */
+.r{--marine:#003473;--encre:#152337;--gris:#69768A;--trait:#D5DCE5;--turquoise:#00767C;--fond:#FFFFFF;
+   background:var(--fond);color:var(--encre);font-family:'Barlow',sans-serif;height:100%;display:flex;flex-direction:column}
+.r .statut{color:#fff;background:var(--marine)}
+.r--clair .statut{color:var(--encre);background:#fff}
+.r .cond{font-family:'Barlow Condensed',sans-serif}
+
+/* bandeau de tête */
+.r-bandeau{background:var(--marine);color:#fff;padding:14px 22px 22px}
+.r-bandeau h1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:40px;line-height:.94;margin:0 0 10px;letter-spacing:-.005em}
+.r-bandeau h1 em{font-style:normal;display:block;color:#7FD3D6}
+.r-bandeau p{margin:0;font-size:14.5px;line-height:1.45;color:#BFD2E8}
+.r-ici{display:flex;align-items:center;gap:10px;background:#ED9800;color:#2B1B00;padding:11px 22px;font-size:14.5px;font-weight:600}
+.r-ici svg{flex:none}
+
+/* plaques de navigation */
+.r-plaques{padding:6px 0;flex:1}
+.r-plaque{display:flex;align-items:center;gap:16px;padding:17px 22px;border-bottom:1px solid var(--trait);background:#fff}
+.r-plaque .num{width:44px;height:44px;flex:none;border-radius:3px;display:grid;place-items:center;color:#fff;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:26px;line-height:1}
+.r-plaque .txt{flex:1;min-width:0}
+.r-plaque .txt b{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:24px;line-height:1.1;letter-spacing:.005em}
+.r-plaque .txt span{display:block;font-size:13.5px;color:var(--gris);margin-top:2px}
+.r-fleche{flex:none;color:#9AA6B7}
+
+/* encadré prochain événement */
+.r-suivant{margin:14px 22px 0;border:2px solid var(--marine);border-radius:2px}
+.r-suivant .haut{background:var(--marine);color:#fff;padding:7px 14px;font-size:13.5px;font-weight:600;display:flex;justify-content:space-between}
+.r-suivant .bas{padding:12px 14px}
+.r-suivant .bas b{font-family:'Barlow Condensed',sans-serif;font-size:21px;font-weight:600;line-height:1.15;display:block}
+.r-suivant .bas span{font-size:13.5px;color:var(--gris)}
+
+/* barre de navigation */
+.r-nav{display:flex;border-top:1px solid var(--trait);background:#fff;padding:8px 4px 22px}
+.r-nav a{flex:1;text-decoration:none;color:#7A8698;display:flex;flex-direction:column;align-items:center;gap:4px;
+  font-size:11.5px;font-weight:500}
+.r-nav a.actif{color:var(--marine);font-weight:600}
+.r-nav a.actif svg{stroke-width:2.2}
+
+/* en-tête simple des pages internes */
+.r-tete{background:var(--marine);color:#fff;padding:8px 20px 16px;display:flex;align-items:center;gap:14px}
+.r-tete h2{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:30px;margin:0;letter-spacing:.005em}
+.r-onglets{display:flex;background:var(--marine)}
+.r-onglets button{flex:1;background:none;border:0;color:#9FBEDE;font-family:'Barlow Condensed',sans-serif;font-size:19px;
+  font-weight:600;padding:9px 0 12px;border-bottom:4px solid transparent;cursor:default}
+.r-onglets button.actif{color:#fff;border-bottom-color:#ED9800}
+
+/* rangées du plan */
+.r-liste{flex:1;min-height:0;overflow:hidden;display:flex;flex-direction:column}
+.r-services{margin-top:auto}
+.r-rang{display:flex;gap:14px;align-items:flex-start;padding:14px 20px;border-bottom:1px solid var(--trait)}
+.r-rang .puce{width:38px;height:38px;flex:none;border-radius:3px;color:#fff;display:grid;place-items:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:23px}
+.r-rang .co{flex:1;min-width:0}
+.r-rang .co b{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:21px;line-height:1.15}
+.r-rang .co span{display:block;font-size:13px;color:var(--gris);margin-top:2px}
+.r-services{padding:12px 20px;background:#F2F5F8;font-size:13px;color:#4C5A6E;line-height:1.6}
+.r-services b{font-weight:600;color:var(--encre)}
+
+/* fiche exposant : la plaque de porte */
+.r-porte{background:#ED9800;color:#241700;padding:16px 22px 18px}
+.r-porte .vil{font-size:13.5px;font-weight:700;margin-bottom:9px}
+.r-porte .salle{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:52px;line-height:.9;letter-spacing:-.01em}
+.r-porte .sous{font-size:14px;font-weight:600;margin-top:6px}
+.r-village{padding:9px 22px;color:#fff;font-size:14px;font-weight:600;display:flex;justify-content:space-between}
+.r-corps{padding:18px 22px;flex:1}
+.r-corps h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:31px;line-height:1.05;margin:0 0 6px}
+.r-meta{font-size:13.5px;color:var(--gris);margin:0 0 14px}
+.r-horaire{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--trait);padding:6px 11px;font-size:13.5px;font-weight:600;margin-bottom:14px}
+.r-desc{font-size:14.5px;line-height:1.55;margin:0 0 18px}
+.r-boutons{display:flex;gap:10px;margin-bottom:20px}
+.r-boutons a{flex:1;text-align:center;text-decoration:none;padding:13px 8px;font-weight:600;font-size:15px;border-radius:2px}
+.r-b1{background:var(--marine);color:#fff}
+.r-b2{background:#fff;color:var(--marine);box-shadow:inset 0 0 0 2px var(--marine)}
+.r-questions{border-top:2px solid var(--encre);padding-top:12px}
+.r-questions b{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:600;display:block;margin-bottom:8px}
+.r-questions li{font-size:14px;line-height:1.45;margin-bottom:9px;color:#33415B;list-style:none;position:relative;padding-left:18px}
+.r-questions li:before{content:"";position:absolute;left:0;top:8px;width:9px;height:2px;background:#ED9800}
+.r-questions ul{margin:0;padding:0}
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Repères</b><span>direction 01 sur 10</span></div>
+  <p class="chapo">Le lycée est un bâtiment que personne ne connaît : l'appli en devient la signalétique.
+  Bandeaux pleine largeur, numéros de village en pastille carrée, numéro de salle traité comme une plaque de
+  porte. On sait toujours où l'on est, à quel étage, et ce qu'il y a derrière la porte.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Marine de l'affiche pour les bandeaux, ambre pour tout ce qui dit « où »,
+      onze couleurs de village.<div class="nuancier"><i style="background:#003473"></i><i style="background:#ED9800"></i><i style="background:#00767C"></i><i style="background:#C90151"></i><i style="background:#FFFFFF"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Barlow Condensed pour les titres et les numéros — l'étroite des panneaux
+      de gare. Barlow pour le texte courant.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Cinq onglets en bas, jamais plus d'un niveau de profondeur. Aucun geste
+      à apprendre.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les parents et les visiteurs pressés. Se lit de loin, à bout de bras,
+      dans un couloir bruyant.</dd></dl>
+  </div>
+
+  <div class="scene">
+
+    <!-- ÉCRAN 1 : ACCUEIL -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="r">
+          <div class="statut"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="r-bandeau">
+            <h1>Festival<em>de l'Orientation</em></h1>
+            <p>Samedi 14 novembre, 9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30<br>Ensemble scolaire Maurice Rondeau</p>
+          </div>
+          <div class="r-ici">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/></svg>
+            Vous êtes à l'accueil, rez-de-chaussée
+          </div>
+          <div class="r-plaques">
+            <div class="r-plaque"><div class="num" style="background:#003473">P</div>
+              <div class="txt"><b>Programme</b><span>7 événements, de 10&nbsp;h à 13&nbsp;h</span></div>
+              <svg class="r-fleche" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></div>
+            <div class="r-plaque"><div class="num" style="background:#00767C">E</div>
+              <div class="txt"><b>Exposants</b><span>109 stands, 9 villages</span></div>
+              <svg class="r-fleche" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></div>
+            <div class="r-plaque"><div class="num" style="background:#ED9800">L</div>
+              <div class="txt"><b>Plan</b><span>2 niveaux, 11 zones</span></div>
+              <svg class="r-fleche" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></div>
+            <div class="r-plaque"><div class="num" style="background:#C90151">V</div>
+              <div class="txt"><b>Ma visite</b><span>3 stands et 1 conférence retenus</span></div>
+              <svg class="r-fleche" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></div>
+
+            <div class="r-suivant">
+              <div class="haut"><span>Ça commence dans 12 minutes</span><span>10&nbsp;h&nbsp;00</span></div>
+              <div class="bas"><b>Concours d'ingénieurs post-bac : comparer les concours et leurs écoles</b>
+                <span>Auditorium, rez-de-chaussée — entrée par le hall</span></div>
+            </div>
+          </div>
+          <nav class="r-nav">
+            <a class="actif" href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Accueil</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Exposants</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 4 2.4 5 5.6.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.6-.8z"/></svg>Ma visite</a>
+          </nav>
+        </div>
+        <div class="barredom" style="background:#000"></div>
+      </div></div>
+      <figcaption><b>Accueil</b><span>La date, l'heure, l'endroit, puis quatre portes. L'encadré du bas répond
+        à la seule question qu'on se pose en arrivant : qu'est-ce qui commence bientôt ?</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 2 : PLAN -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="r">
+          <div class="statut"><span>9:52</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="r-tete">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 5l-7 7 7 7"/></svg>
+            <h2>Plan du festival</h2>
+          </div>
+          <div class="r-onglets"><button class="actif">Rez-de-chaussée</button><button>1<sup>er</sup> étage</button></div>
+          <div class="r-liste">
+            <div class="r-rang"><div class="puce" style="background:#64748B">1</div>
+              <div class="co"><b>Accueil</b><span>Entrée du lycée, sous le préau — plan papier et bénévoles</span></div></div>
+            <div class="r-rang"><div class="puce" style="background:#C90151">2</div>
+              <div class="co"><b>Santé &amp; Soin</b><span>Salles 21 à 24 · 18 exposants · face à l'escalier</span></div></div>
+            <div class="r-rang"><div class="puce" style="background:#003473">3</div>
+              <div class="co"><b>Commerce, Marketing &amp; Management</b><span>Salles 31 à 35 · 13 exposants · au fond du couloir</span></div></div>
+            <div class="r-rang"><div class="puce" style="background:#2E7D32">8</div>
+              <div class="co"><b>Formations professionnelles</b><span>Salles 81 à 83 · 12 exposants · face à l'escalier</span></div></div>
+            <div class="r-rang"><div class="puce" style="background:#4C5FD7">10</div>
+              <div class="co"><b>Orientation générale</b><span>Salles 101 à 103 · 6 exposants · au fond du couloir</span></div></div>
+            <div class="r-rang"><div class="puce" style="background:#334155">11</div>
+              <div class="co"><b>Conférences</b><span>Auditorium (200 places) et Petite salle (40) · entrée par le hall</span></div></div>
+            <div class="r-services">
+              <b>Toilettes</b> à côté de l'accueil &nbsp;·&nbsp; <b>Food-trucks</b> dans la cour d'honneur, toute la matinée<br>
+              <b>Escalier</b> vers le 1<sup>er</sup> étage au bout du couloir des salles 30
+            </div>
+          </div>
+          <nav class="r-nav">
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Accueil</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Exposants</a>
+            <a class="actif" href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 4 2.4 5 5.6.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.6-.8z"/></svg>Ma visite</a>
+          </nav>
+        </div>
+        <div class="barredom" style="background:#000"></div>
+      </div></div>
+      <figcaption><b>Plan</b><span>Pas une image à pincer pour zoomer : la liste des villages, étage par étage,
+        avec les numéros de salle et le repère de couloir. Chaque ligne mène au plan dessiné de la zone.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 3 : FICHE EXPOSANT -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="r r--clair">
+          <div class="statut"><span>9:58</span><span>Wi-Fi&nbsp;&nbsp;99&nbsp;%</span></div>
+          <div class="r-porte">
+            <div class="vil">Village 5 — Ingénierie, Industrie &amp; Sciences · 12 exposants</div>
+            <div class="salle">Salle 51</div>
+            <div class="sous">Stand 1 · 1<sup>er</sup> étage · à droite en sortant de l'escalier</div>
+          </div>
+          <div class="r-corps">
+            <h3>ESIEE Paris</h3>
+            <p class="r-meta">École d'ingénieurs · Noisy-le-Grand et Champs-sur-Marne · post-bac à Bac+5</p>
+            <div class="r-horaire">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              Sur son stand de 9&nbsp;h&nbsp;30 à 11&nbsp;h&nbsp;30
+            </div>
+            <p class="r-desc">Cycle préparatoire, diplôme d'ingénieur en numérique, électronique, systèmes
+              embarqués, biotechnologies et énergie, bachelors et MSc.</p>
+            <div class="r-boutons">
+              <a class="r-b1" href="#">Ajouter à ma visite</a>
+              <a class="r-b2" href="#">Voir sur le plan</a>
+            </div>
+            <div class="r-questions">
+              <b>À demander sur le stand</b>
+              <ul>
+                <li>Quels sont les critères d'admission, et via Parcoursup ou hors Parcoursup ?</li>
+                <li>Combien coûtent les études, et quelles aides ou bourses existent ?</li>
+                <li>Peut-on suivre la formation en alternance, et à partir de quelle année ?</li>
+              </ul>
+            </div>
+          </div>
+          <nav class="r-nav">
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>Accueil</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a class="actif" href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Exposants</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+            <a href="#"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 4 2.4 5 5.6.8-4 3.9 1 5.5L12 16.6 7 19.2l1-5.5-4-3.9 5.6-.8z"/></svg>Ma visite</a>
+          </nav>
+        </div>
+        <div class="barredom" style="background:#000"></div>
+      </div></div>
+      <figcaption><b>Fiche exposant</b><span>Ouverte en scannant le QR code du stand : le numéro de salle occupe
+        le haut comme sur une plaque de porte, et les questions à poser sont déjà là.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

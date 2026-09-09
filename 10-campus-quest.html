@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Campus Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#173CBA}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;font-size:48px;line-height:1;color:var(--accent);letter-spacing:-.02em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Fredoka',system-ui,sans-serif;font-weight:600;font-size:23px;line-height:1.12}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;z-index:8;background:#132552;opacity:.4}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:44px}}
+
+/* Cadre de téléphone commun aux dix directions : 390 x 844 dans une coque sombre. */
+.phone-shell{width:414px;height:868px;max-width:none;margin:0;padding:12px;border-radius:52px;background:#10141B;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.phone-screen{position:relative;width:390px;height:844px;overflow:hidden;border-radius:41px;
+  background:var(--app-bg);color:var(--app-text);font-family:var(--app-font)}
+.phone-status{flex:none;height:52px;padding:0 26px 6px;display:flex;justify-content:space-between;align-items:flex-end;
+  font-size:13px;font-weight:600;position:relative;z-index:5}
+.phone-content{height:calc(100% - 52px);display:flex;flex-direction:column;position:relative;z-index:2}
+.screen-main{flex:1;min-height:0;overflow:hidden;padding:var(--screen-pad,18px)}
+.bottom-nav{height:84px;flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px;
+  border-top:1px solid var(--app-line);background:var(--nav-bg)}
+.bottom-nav div{text-align:center;font-size:9px;color:var(--app-muted)}
+.bottom-nav b{display:block;font-size:19px;line-height:1.1;font-weight:500;margin-bottom:3px}
+.bottom-nav .active{color:var(--concept-accent)}
+.mini-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.mini-top strong{font-family:var(--concept-display);font-size:17px}
+.avatar,.round-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--app-surface);border:1px solid var(--app-line);flex:none}
+.app-eyebrow{margin:0 0 7px;text-transform:uppercase;letter-spacing:.13em;font-size:9px;font-weight:800;color:var(--concept-accent)}
+.app-title{font-family:var(--concept-display);font-size:var(--app-title,31px);line-height:1.02;letter-spacing:var(--app-title-track,-.02em);margin:0}
+.app-subtitle{margin:8px 0 0;color:var(--app-muted);font-size:11px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:6px 9px;border-radius:999px;background:var(--app-surface);border:1px solid var(--app-line);color:var(--app-muted);font-size:9px}
+.pill.on{background:var(--concept-accent);border-color:var(--concept-accent);color:var(--accent-text);font-weight:700}
+.section-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:18px 0 9px}
+.section-label strong{font-family:var(--concept-display);font-size:14px}
+.section-label span{color:var(--concept-accent);font-size:9px;font-weight:800}
+.action-button{display:flex;justify-content:center;align-items:center;gap:7px;width:100%;border:0;border-radius:var(--button-radius,12px);
+  padding:12px;background:var(--concept-accent);color:var(--accent-text);font-weight:800;font-size:10.5px;font-family:inherit}
+
+/* --- Campus Quest --- */
+
+.quest{
+  --concept-accent:#c9ff3e;
+  --concept-display:'Fredoka',system-ui,sans-serif;
+  --app-bg:#f6f4ea; --app-text:#132552; --app-muted:#5f6c87; --app-surface:#ffffff; --app-line:#132552;
+  --app-font:'Manrope',system-ui,sans-serif; --nav-bg:#ffffff; --accent-text:#132552;
+  --control-radius:14px; --button-radius:14px; --screen-pad:15px; --app-title:30px; --app-title-track:-.02em;
+}
+.quest .phone-screen{color-scheme:light;background-image:radial-gradient(#d5d8d2 1px,transparent 1px);background-size:15px 15px}
+.quest .phone-status{color:#132552}
+.quest .app-title{font-weight:600}
+.quest .mini-top strong{background:#173cba;color:#fff;padding:6px 10px;border:2px solid var(--app-line);box-shadow:3px 3px 0 var(--app-line);transform:rotate(-1deg)}
+.quest .sticker{display:inline-flex;width:max-content;padding:6px 9px;border:2px solid var(--app-line);background:#ff725e;color:#132552;box-shadow:3px 3px 0 var(--app-line);transform:rotate(-2deg);font-size:9.5px;font-weight:800}
+.quest .app-title{color:#173cba;text-shadow:2px 2px 0 #fff}
+.quest .mission-card{border:2px solid var(--app-line);border-radius:18px;background:#fff;padding:13px;box-shadow:4px 4px 0 var(--app-line);margin-top:13px}
+.quest .mission-card.lime{background:var(--concept-accent)}
+.quest .mission-card.coral{background:#ff806f}
+.quest .mission-card.blue{background:#6ed6ff}
+.quest .mission-card strong{display:block;font-size:12.5px}
+.quest .mission-card small{color:#314164;font-size:9.5px}
+.quest .quest-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.quest .quest-tile{min-height:96px;border:2px solid var(--app-line);border-radius:16px;padding:10px;background:#fff;box-shadow:3px 3px 0 var(--app-line);display:flex;flex-direction:column;justify-content:space-between}
+.quest .quest-tile:nth-child(2){background:#ff806f}
+.quest .quest-tile:nth-child(3){background:#6ed6ff}
+.quest .quest-tile:nth-child(4){background:#ffd65a}
+.quest .quest-tile b{font-size:21px}
+.quest .quest-tile strong{font-size:9.5px;line-height:1.25}
+.quest .level{display:flex;justify-content:space-between;align-items:center;border:2px solid var(--app-line);border-radius:999px;padding:8px 11px;background:#fff;box-shadow:2px 2px 0 var(--app-line);margin:11px 0 13px;font-size:9.5px;font-weight:800}
+.quest .level span{color:#173cba}
+.quest .quest-route{position:relative;margin-top:12px;padding-left:24px}
+.quest .quest-route::before{content:"";position:absolute;left:8px;top:8px;bottom:15px;width:3px;background:#173cba}
+.quest .quest-stop{position:relative;border:2px solid var(--app-line);border-radius:14px;background:#fff;box-shadow:3px 3px 0 var(--app-line);padding:10px;margin-bottom:9px}
+.quest .quest-stop::before{content:"✓";position:absolute;left:-24px;top:11px;width:16px;height:16px;display:grid;place-items:center;border-radius:50%;background:var(--concept-accent);border:2px solid var(--app-line);font-size:8px;font-weight:800}
+.quest .quest-stop strong{display:block;font-size:10.5px}
+.quest .quest-stop small{color:var(--app-muted);font-size:8.5px}
+.quest .mini-map{height:132px;position:relative;border:2px solid var(--app-line);border-radius:16px;background:#cfe8dc;box-shadow:3px 3px 0 var(--app-line);overflow:hidden;margin-top:12px}
+.quest .mini-map::before{content:"";position:absolute;width:230px;height:70px;border:3px dashed #173cba;border-radius:50%;left:30px;top:25px;transform:rotate(-8deg)}
+.quest .map-badge{position:absolute;padding:5px 8px;background:#fff;border:2px solid var(--app-line);border-radius:9px;font-size:8.5px;font-weight:800}
+.quest .map-badge.one{left:32px;top:31px;background:var(--concept-accent)}
+.quest .map-badge.two{right:38px;top:72px;background:#ff806f}
+
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Campus Quest</b><span>direction 10 sur 10</span></div>
+  <p class="chapo">Une exploration modulaire, faite pour donner envie d'avancer : contours épais, ombres portées franches, autocollants. On n'entre pas par un menu mais par une mission — « je cherche une école », « je veux une idée de métier » — et le plan se lit comme une carte de jeu.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Bleu roi, citron, corail, sur un papier pointillé. Les couleurs servent à distinguer les villages, pas à décorer.<div class="nuancier"><i style="background:#f6f4ea"></i><i style="background:#173cba"></i><i style="background:#c9ff3e"></i><i style="background:#ff806f"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Fredoka pour les titres et les badges, Manrope pour le texte. Tout est cerné d'un trait de 2 px.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Départ, Villages, Programme, Ma route. Un compteur de villages visités tient lieu de fil conducteur.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les collégiens et les classes accompagnées. Réserve : le ton ludique peut agacer une partie des terminales et des parents — c'est le pari de cette direction.</dd></dl>
+  </div>
+
+  <div class="scene quest">
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>FESTIVAL 26</strong><div class="avatar">✦</div></div>
+            <span class="sticker">SAM. 14 NOV. · 9 H 30 – 13 H 30</span>
+            <h3 class="app-title" style="margin-top:14px">Quelle est ta mission aujourd'hui ?</h3>
+            <div class="mission-card lime"><strong>Je veux trouver une idée de métier</strong><small>Rencontrer des professionnels et des anciens élèves →</small></div>
+            <div class="mission-card coral"><strong>Je cherche une école</strong><small>Comparer les 36 écoles présentes →</small></div>
+            <div class="mission-card blue"><strong>Je veux juste faire le tour</strong><small>Commencer par les neuf villages du plan →</small></div>
+            <div class="mission-card" style="background:#ffd65a"><strong>J'accompagne mon enfant</strong><small>Le programme et le plan, sans jargon →</small></div>
+          </div>
+          <div class="bottom-nav"><div class="active"><b>⌂</b>Départ</div><div><b>▦</b>Villages</div><div><b>◷</b>Programme</div><div><b>✓</b>Ma route</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Départ</b><span>Trois missions au lieu d'un menu. Chacune mène au même contenu, mais par la porte que le visiteur se reconnaît — c'est le seul écran des dix qui pose la question en ces termes.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:54</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>VILLAGES</strong><div class="round-icon">⌕</div></div>
+            <h3 class="app-title">Choisis ton prochain monde</h3>
+            <div class="level"><span>Exploration</span><b>2 / 9 villages vus</b></div>
+            <div class="quest-grid">
+              <div class="quest-tile"><b>♡</b><strong>2 · Santé &amp; Soin</strong></div>
+              <div class="quest-tile"><b>↗</b><strong>3 · Commerce, Marketing &amp; Management</strong></div>
+              <div class="quest-tile"><b>⚙</b><strong>5 · Ingénierie, Industrie &amp; Sciences</strong></div>
+              <div class="quest-tile"><b>⌘</b><strong>6 · Numérique &amp; Cybersécurité</strong></div>
+              <div class="quest-tile"><b>✦</b><strong>7 · Communication, Médias &amp; Création</strong></div>
+              <div class="quest-tile"><b>?</b><strong>10 · Orientation générale</strong></div>
+    <div class="quest-tile"><b>€</b><strong>4 · Banque, Finance &amp; Droit</strong></div>
+    <div class="quest-tile"><b>⚒</b><strong>8 · Formations professionnelles</strong></div>
+    <div class="quest-tile"><b>◈</b><strong>9 · Services, Éducation &amp; Sécurité</strong></div>
+            </div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Départ</div><div class="active"><b>▦</b>Villages</div><div><b>◷</b>Programme</div><div><b>✓</b>Ma route</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Villages</b><span>Les neuf villages en tuiles, avec un compteur de ceux déjà vus. Le compte vit sur le téléphone et ne remonte nulle part — c'est un repère pour soi, pas un score partagé.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>10:01</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>MA ROUTE</strong><div class="round-icon">4</div></div>
+            <span class="sticker">PROCHAINE ÉTAPE</span>
+            <h3 class="app-title" style="margin-top:12px">Direction salle 21 !</h3>
+            <div class="mini-map"><span class="map-badge one">VOUS</span><span class="map-badge two">S 21</span></div>
+            <div class="quest-route">
+              <div class="quest-stop"><strong>10:00 · Atelier CV</strong><small>Salle 81 · 30 min</small></div>
+              <div class="quest-stop"><strong>DIPLOMA SANTE</strong><small>Salle 21 · stand 1 · jusqu'à 13&nbsp;h&nbsp;30</small></div>
+              <div class="quest-stop"><strong>11:30 · Les études de santé</strong><small>Auditorium · 45 min</small></div>
+    <div class="quest-stop"><strong>12:15 · Architecture : la première année</strong><small>Petite salle · 45 min</small></div>
+            </div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Départ</div><div><b>▦</b>Villages</div><div><b>◷</b>Programme</div><div class="active"><b>✓</b>Ma route</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Ma route</b><span>Une carte réduite qui ne montre que deux choses — où l'on est, où l'on va — puis les étapes cochées au fur et à mesure. Le plan complet reste à un onglet de là.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

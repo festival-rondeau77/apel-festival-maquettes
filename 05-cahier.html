@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cahier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#1E3A6E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Caveat',cursive;font-weight:700;font-size:66px;line-height:.9;color:var(--accent)}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Caveat',cursive;font-size:28px;line-height:1}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.cadre{width:414px;height:868px;border-radius:52px;background:#10141B;padding:12px;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.ecran{width:390px;height:844px;border-radius:41px;overflow:hidden;position:relative}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.statut{flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:600}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#1E3A6E;opacity:.3;z-index:8}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:50px}}
+
+/* ---------- Cahier : le carnet de visite ---------- */
+.c{--papier:#FCFBF5;--encre:#1E3A6E;--marge:#DC5A4B;--seyes:#DCE6F2;--crayon:#6E7684;--kraft:#C9A227;
+   height:100%;display:flex;flex-direction:column;color:var(--encre);font-family:'Karla',sans-serif;
+   background:var(--papier);position:relative}
+/* la réglure Seyès, très pâle */
+.c:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(to bottom,transparent 0 27px,var(--seyes) 27px 28px)}
+.c-marge{position:absolute;top:52px;bottom:0;left:33px;width:1.5px;background:var(--marge);opacity:.75;z-index:1}
+.c>*{position:relative;z-index:2}
+.c .statut{color:var(--crayon)}
+.c .main{font-family:'Caveat',cursive}
+
+/* intercalaires */
+.c-onglets{display:flex;gap:3px;padding:0 12px;margin-top:2px;align-items:flex-end}
+.c-onglets div{flex:1;text-align:center;font-size:11.5px;font-weight:600;padding:7px 2px 6px;
+  border-radius:7px 7px 0 0;background:#EDEAE0;color:#8A8578;box-shadow:inset 0 -3px 0 rgba(0,0,0,.05)}
+.c-onglets div.actif{background:var(--papier);color:var(--encre);padding-bottom:9px;box-shadow:0 -2px 0 var(--kraft) inset,0 -1px 6px rgba(0,0,0,.06)}
+.c-page{border-top:2px solid var(--kraft);flex:1;padding:0 22px 0 46px;overflow:hidden}
+
+/* couverture */
+.c-etiquette{margin:26px 0 0;background:#fff;border:1px solid #E3DFD2;border-radius:2px;padding:18px 20px 20px;
+  box-shadow:2px 3px 0 rgba(30,58,110,.07);transform:rotate(-.6deg)}
+.c-etiquette .sur{font-size:11.5px;letter-spacing:.06em;color:#9A958A}
+.c-etiquette h1{font-family:'Caveat',cursive;font-weight:700;font-size:44px;line-height:.95;margin:2px 0 8px;color:var(--encre)}
+.c-etiquette p{margin:0;font-size:14px;line-height:1.5;color:#4B5568}
+.c-etiquette .trait{height:1px;background:#E3DFD2;margin:13px 0}
+.c-note{font-family:'Caveat',cursive;font-size:21px;color:var(--marge);margin:14px 0 4px;transform:rotate(-.8deg)}
+
+/* rubriques */
+.c-rub{display:flex;align-items:center;gap:13px;padding:14px 4px;border-bottom:1px dashed #C9CFD9}
+.c-rub .gom{width:15px;height:15px;border-radius:50%;flex:none;box-shadow:0 0 0 3px var(--papier)}
+.c-rub b{font-size:17px;font-weight:700;flex:1}
+.c-rub span{font-size:13px;color:var(--crayon)}
+.c-postit{margin:16px 0 0;background:#FFF3B0;padding:14px 16px 16px;transform:rotate(.8deg);
+  box-shadow:1px 3px 8px rgba(60,50,0,.14)}
+.c-postit .h{font-family:'Caveat',cursive;font-size:22px;color:#6B5A00}
+.c-postit b{display:block;font-size:15px;line-height:1.35;margin:3px 0 4px}
+.c-postit span{font-size:13px;color:#6B6440}
+
+/* emploi du temps */
+.c-titre{font-family:'Caveat',cursive;font-size:34px;font-weight:700;margin:10px 0 2px}
+.c-sous{font-size:13px;color:var(--crayon);margin:0 0 12px}
+.c-ligne{display:flex;gap:11px;padding:7px 0;border-bottom:1px solid #E7E3D6;align-items:flex-start}
+.c-h{font-family:'Caveat',cursive;font-size:21px;font-weight:700;width:66px;white-space:nowrap;flex:none;color:var(--marge);line-height:1.2;padding-top:1px}
+.c-co{flex:1;min-width:0}
+.c-co b{display:block;font-size:14px;font-weight:700;line-height:1.3}
+.c-co span{display:block;font-size:12.5px;color:var(--crayon);margin-top:2px}
+.c-case{width:21px;height:21px;flex:none;border:1.8px solid var(--encre);border-radius:3px;margin-top:2px;
+  display:grid;place-items:center;background:#fff}
+.c-case.ok{background:var(--encre)}
+.c-jalon{font-size:12.5px;color:var(--crayon);padding:6px 0;font-style:italic}
+
+/* ma visite */
+.c-bloc{margin-top:16px}
+.c-bloc>.et{font-family:'Caveat',cursive;font-size:25px;font-weight:700;color:var(--marge);margin-bottom:4px}
+.c-q{font-size:13.5px;line-height:1.45;padding:8px 0 8px 20px;border-bottom:1px solid #E7E3D6;position:relative}
+.c-q:before{content:"?";position:absolute;left:2px;top:8px;font-family:'Caveat',cursive;font-size:20px;color:var(--marge);font-weight:700}
+.c-manuscrit{font-family:'Caveat',cursive;font-size:20px;color:#2B57A8;line-height:1.25;padding:8px 0 4px 20px;transform:rotate(-.5deg)}
+.c-pied{padding:12px 22px 26px 46px;font-size:12.5px;color:var(--crayon);display:flex;justify-content:space-between;align-items:center;border-top:1px solid #E7E3D6}
+.c-pied a{color:var(--encre);text-decoration:none;font-weight:700;border-bottom:1.5px solid var(--kraft)}
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Cahier</b><span>direction 05 sur 10</span></div>
+  <p class="chapo">Un salon d'orientation, c'est d'abord un carnet où l'on note. La maquette prend cette forme :
+  réglure Seyès pâle, filet de marge rouge, cases à cocher, annotations à la main. L'appli n'est plus un
+  service en ligne mais le cahier du visiteur — et ce qu'il coche lui reste.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Papier, encre bleue, rouge de marge, or des intercalaires.
+      Les couleurs des villages ne servent que de gommettes.
+      <div class="nuancier"><i style="background:#FCFBF5"></i><i style="background:#1E3A6E"></i><i style="background:#DC5A4B"></i><i style="background:#C9A227"></i><i style="background:#FFF3B0"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Karla pour tout ce qui vient du tableur ; Caveat, une manuscrite,
+      pour ce qui appartient au visiteur.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Quatre intercalaires en haut, comme dans un classeur. Pas de barre
+      d'onglets en bas : le pouce reste sur la page.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les collégiens et lycéens qui viennent avec une liste à remplir, et les
+      professeurs qui accompagnent une classe.</dd></dl>
+  </div>
+
+  <div class="scene">
+
+    <!-- ÉCRAN 1 : COUVERTURE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="c">
+          <div class="c-marge"></div>
+          <div class="statut"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="c-onglets"><div class="actif">Mon cahier</div><div>Programme</div><div>Exposants</div><div>Plan</div></div>
+          <div class="c-page">
+            <div class="c-etiquette">
+              <div class="sur">Ensemble scolaire Maurice Rondeau</div>
+              <h1>Festival de l'Orientation</h1>
+              <p>Samedi 14 novembre 2026, de 9&nbsp;h&nbsp;30 à 13&nbsp;h&nbsp;30<br>
+                 1 place du Clos Saint-Georges, Bussy-Saint-Georges</p>
+              <div class="trait"></div>
+              <p>Entrée libre, par l'entrée du lycée. Wi-Fi «&nbsp;FESTIVAL&nbsp;», sans mot de passe.</p>
+            </div>
+            <div class="c-note main">Ce cahier reste sur ton téléphone.</div>
+
+            <div class="c-rub"><span class="gom" style="background:#003473"></span><b>Programme</b><span>7 événements</span></div>
+            <div class="c-rub"><span class="gom" style="background:#00767C"></span><b>Exposants</b><span>109 stands</span></div>
+            <div class="c-rub"><span class="gom" style="background:#ED9800"></span><b>Plan</b><span>2 étages, 11 villages</span></div>
+            <div class="c-rub"><span class="gom" style="background:#C90151"></span><b>Ma visite</b><span>4 choisis</span></div>
+
+            <div class="c-postit">
+              <div class="h">dans 12 minutes&nbsp;!</div>
+              <b>Concours d'ingénieurs post-bac : comparer les concours et leurs écoles</b>
+              <span>10&nbsp;h&nbsp;00 – 10&nbsp;h&nbsp;45 · Auditorium, rez-de-chaussée</span>
+            </div>
+          </div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Mon cahier</b><span>La couverture : ce qu'il faut savoir avant d'entrer, quatre intercalaires,
+        et un pense-bête pour ce qui commence bientôt.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 2 : PROGRAMME -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="c">
+          <div class="c-marge"></div>
+          <div class="statut"><span>9:52</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="c-onglets"><div>Mon cahier</div><div class="actif">Programme</div><div>Exposants</div><div>Plan</div></div>
+          <div class="c-page">
+            <div class="c-titre">La matinée</div>
+            <p class="c-sous">Conférences, tables rondes et ateliers. Coche ce que tu veux suivre.</p>
+
+            <div class="c-jalon">9&nbsp;h&nbsp;30 — ouverture des portes, accueil sous le préau</div>
+
+            <div class="c-ligne">
+              <div class="c-h">10&nbsp;h</div>
+              <div class="c-co"><b>Concours d'ingénieurs post-bac : comparer les concours et leurs écoles</b>
+                <span>Conférence · Auditorium · jusqu'à 10&nbsp;h&nbsp;45 · Prépa Campus</span></div>
+              <div class="c-case ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FCFBF5" stroke-width="3.4" stroke-linecap="round"><path d="M5 13l4.5 4.5L19 6.5"/></svg></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">10&nbsp;h</div>
+              <div class="c-co"><b>Atelier CV</b><span>Atelier · Salle 81 · jusqu'à 10&nbsp;h&nbsp;30 · petit groupe</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">10&nbsp;h&nbsp;45</div>
+              <div class="c-co"><b>Écoles de commerce : tout comprendre sur les concours Accès et Sésame</b>
+                <span>Conférence · Auditorium · jusqu'à 11&nbsp;h&nbsp;30</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">11&nbsp;h</div>
+              <div class="c-co"><b>Atelier CV</b><span>Atelier · Salle 81 · jusqu'à 11&nbsp;h&nbsp;30</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">11&nbsp;h&nbsp;30</div>
+              <div class="c-co"><b>Les études de santé et la réforme 2027</b>
+                <span>Conférence · Auditorium · jusqu'à 12&nbsp;h&nbsp;15</span></div>
+              <div class="c-case ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FCFBF5" stroke-width="3.4" stroke-linecap="round"><path d="M5 13l4.5 4.5L19 6.5"/></svg></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">11&nbsp;h&nbsp;30</div>
+              <div class="c-co"><b>Écoles de commerce : comment choisir la bonne école pour son projet ?</b>
+                <span>Table ronde · Petite salle · jusqu'à 12&nbsp;h&nbsp;15</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h">12&nbsp;h&nbsp;15</div>
+              <div class="c-co"><b>Architecture : la première année, l'admission, la réforme 2027</b>
+                <span>Conférence · Petite salle · jusqu'à 13&nbsp;h&nbsp;00</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-jalon">13&nbsp;h&nbsp;30 — fin du festival</div>
+          </div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Programme</b><span>Une page d'emploi du temps : l'heure dans la marge, la case à cocher
+        à droite. Deux conférences en même temps se voient d'un coup d'œil.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 3 : MA VISITE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="c">
+          <div class="c-marge"></div>
+          <div class="statut"><span>10:26</span><span>Wi-Fi&nbsp;&nbsp;99&nbsp;%</span></div>
+          <div class="c-onglets"><div class="actif">Ma visite</div><div>Programme</div><div>Exposants</div><div>Plan</div></div>
+          <div class="c-page">
+            <div class="c-titre">Ma visite</div>
+            <p class="c-sous">4 stands et 2 conférences. Dans l'ordre du bâtiment, pour ne pas monter deux fois.</p>
+
+            <div class="c-ligne">
+              <div class="c-h" style="color:#64748B;font-size:18px">RDC</div>
+              <div class="c-co"><b>DIPLOMA SANTE</b><span>Salle 21, village Santé &amp; Soin · prépa · 9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30</span></div>
+              <div class="c-case ok"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FCFBF5" stroke-width="3.4" stroke-linecap="round"><path d="M5 13l4.5 4.5L19 6.5"/></svg></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h" style="color:#64748B;font-size:18px">RDC</div>
+              <div class="c-co"><b>Université Gustave Eiffel</b><span>Salle 101, Orientation générale · licence à doctorat</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h" style="color:#64748B;font-size:18px">RDC</div>
+              <div class="c-co"><b>Infirmier·ère en réanimation</b><span>Salle 24, hôpital de Lagny · présent de 11&nbsp;h à 13&nbsp;h&nbsp;30</span></div>
+              <div class="c-case"></div>
+            </div>
+            <div class="c-ligne">
+              <div class="c-h" style="color:#64748B;font-size:18px">1<sup>er</sup></div>
+              <div class="c-co"><b>ESIEE Paris</b><span>Salle 51, Ingénierie · part à 11&nbsp;h&nbsp;30, à voir avant</span></div>
+              <div class="c-case"></div>
+            </div>
+
+            <div class="c-bloc">
+              <div class="et">Mes questions</div>
+              <div class="c-q">Quels sont les critères d'admission, et via Parcoursup ou hors Parcoursup ?</div>
+              <div class="c-q">Combien coûtent les études, et quelles aides ou bourses existent ?</div>
+              <div class="c-q">Peut-on suivre la formation en alternance ?</div>
+              <div class="c-manuscrit">demander aussi&nbsp;: est-ce qu'il y a<br>un internat&nbsp;?</div>
+            </div>
+          </div>
+          <div class="c-pied"><span>Tout est enregistré sur ce téléphone.</span><a href="#">Envoyer ma visite</a></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Ma visite</b><span>Rangée par étage plutôt que par ordre d'ajout, avec l'heure de départ des
+        exposants qui ne restent qu'une demi-matinée. Les questions se complètent à la main.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

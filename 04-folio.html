@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Folio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,500&family=Public+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#BE3B26}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Lora',Georgia,serif;font-weight:700;font-size:54px;line-height:1;color:var(--accent);letter-spacing:-.02em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Lora',Georgia,serif;font-weight:700;font-size:24px;line-height:1.12}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;z-index:8;background:#181b1c;opacity:.4}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:44px}}
+
+/* Cadre de téléphone commun aux dix directions : 390 x 844 dans une coque sombre. */
+.phone-shell{width:414px;height:868px;max-width:none;margin:0;padding:12px;border-radius:52px;background:#10141B;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.phone-screen{position:relative;width:390px;height:844px;overflow:hidden;border-radius:41px;
+  background:var(--app-bg);color:var(--app-text);font-family:var(--app-font)}
+.phone-status{flex:none;height:52px;padding:0 26px 6px;display:flex;justify-content:space-between;align-items:flex-end;
+  font-size:13px;font-weight:600;position:relative;z-index:5}
+.phone-content{height:calc(100% - 52px);display:flex;flex-direction:column;position:relative;z-index:2}
+.screen-main{flex:1;min-height:0;overflow:hidden;padding:var(--screen-pad,18px)}
+.bottom-nav{height:84px;flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px;
+  border-top:1px solid var(--app-line);background:var(--nav-bg)}
+.bottom-nav div{text-align:center;font-size:9px;color:var(--app-muted)}
+.bottom-nav b{display:block;font-size:19px;line-height:1.1;font-weight:500;margin-bottom:3px}
+.bottom-nav .active{color:var(--concept-accent)}
+.mini-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.mini-top strong{font-family:var(--concept-display);font-size:17px}
+.avatar,.round-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--app-surface);border:1px solid var(--app-line);flex:none}
+.app-eyebrow{margin:0 0 7px;text-transform:uppercase;letter-spacing:.13em;font-size:9px;font-weight:800;color:var(--concept-accent)}
+.app-title{font-family:var(--concept-display);font-size:var(--app-title,31px);line-height:1.02;letter-spacing:var(--app-title-track,-.02em);margin:0}
+.app-subtitle{margin:8px 0 0;color:var(--app-muted);font-size:11px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:6px 9px;border-radius:999px;background:var(--app-surface);border:1px solid var(--app-line);color:var(--app-muted);font-size:9px}
+.pill.on{background:var(--concept-accent);border-color:var(--concept-accent);color:var(--accent-text);font-weight:700}
+.section-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:18px 0 9px}
+.section-label strong{font-family:var(--concept-display);font-size:14px}
+.section-label span{color:var(--concept-accent);font-size:9px;font-weight:800}
+.action-button{display:flex;justify-content:center;align-items:center;gap:7px;width:100%;border:0;border-radius:var(--button-radius,12px);
+  padding:12px;background:var(--concept-accent);color:var(--accent-text);font-weight:800;font-size:10.5px;font-family:inherit}
+
+/* --- Folio --- */
+
+.folio{
+  --concept-accent:#e74b36;
+  --concept-display:'Lora',Georgia,'Times New Roman',serif;
+  --app-bg:#f4f0e7; --app-text:#181b1c; --app-muted:#626765; --app-surface:#ebe6dc; --app-line:#1e2423;
+  --app-font:'Public Sans',Arial,Helvetica,sans-serif; --nav-bg:#f4f0e7; --accent-text:#fffaf5;
+  --control-radius:0; --button-radius:0; --screen-pad:16px; --app-title:31px;
+}
+.folio .phone-screen{color-scheme:light}
+.folio .phone-status{color:#181b1c;border-bottom:1px solid var(--app-line)}
+.folio .mini-top{border-bottom:3px solid var(--app-line);padding-bottom:8px;margin-bottom:12px}
+.folio .mini-top strong{font-weight:700}
+.folio .issue{color:var(--concept-accent);font:italic 12px/1 var(--concept-display)}
+.folio .cover-title{font:700 39px/.9 var(--concept-display);letter-spacing:-.035em;margin:12px 0}
+.folio .cover-title em{color:var(--concept-accent);font-weight:500}
+.folio .poster{height:186px;position:relative;overflow:hidden;border:1px solid var(--app-line);background:#e7c64e;margin:12px 0}
+.folio .poster::before{content:"14";position:absolute;right:-6px;top:-38px;font:800 170px/1 'Public Sans',Arial,sans-serif;color:rgba(24,27,28,.14)}
+.folio .poster::after{content:"TROUVEZ VOTRE VOIE";position:absolute;left:12px;bottom:12px;font-weight:800;font-size:12px;letter-spacing:.06em}
+.folio .cover-facts{display:grid;grid-template-columns:1fr 1fr;border-top:3px solid var(--app-line);border-bottom:1px solid var(--app-line)}
+.folio .cover-facts div{padding:9px 0;font-size:9.5px;line-height:1.45}
+.folio .cover-facts div + div{border-left:1px solid var(--app-line);padding-left:10px}
+.folio .folio-date{display:flex;justify-content:space-between;align-items:end;border-bottom:3px solid var(--app-line);padding-bottom:8px}
+.folio .folio-date h3{font:700 26px/1 var(--concept-display);margin:0}
+.folio .folio-date span{color:var(--concept-accent);font-size:10px;font-weight:800}
+.folio .folio-event{display:grid;grid-template-columns:52px 1fr 18px;gap:8px;padding:11px 0;border-bottom:1px solid var(--app-line)}
+.folio .folio-event .hour{font:700 12px/1 var(--concept-display);color:var(--concept-accent)}
+.folio .folio-event strong{font:700 11.5px/1.2 var(--concept-display);display:block}
+.folio .folio-event small{font-size:8.5px;color:var(--app-muted)}
+.folio .profile-number{font:700 76px/.8 var(--concept-display);color:var(--concept-accent);float:right;margin-left:8px}
+.folio .profile-title{font:700 32px/.95 var(--concept-display);margin:14px 0 10px}
+.folio .profile-deck{font:italic 13px/1.3 var(--concept-display);border-top:1px solid var(--app-line);border-bottom:1px solid var(--app-line);padding:10px 0;margin:0 0 4px}
+.folio .folio-fact{display:grid;grid-template-columns:68px 1fr;gap:8px;border-bottom:1px solid #aaa397;padding:7px 0;font-size:9.5px}
+.folio .folio-fact b{text-transform:uppercase;font-size:8px;letter-spacing:.08em}
+.folio .folio-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.folio .folio-actions button{border:1px solid var(--app-line);background:transparent;padding:10px;font:800 9.5px/1 var(--app-font)}
+.folio .folio-actions .primary{background:var(--concept-accent);color:#fff;border-color:var(--concept-accent)}
+
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Folio</b><span>direction 04 sur 10</span></div>
+  <p class="chapo">Le programme imprimé d'un festival, transposé à l'écran : une « une », des filets qui séparent au lieu de cadres qui enferment, et le numéro de salle traité comme un folio de page. La direction la plus sobre des dix, et celle qui vieillira le mieux si l'appli ressert l'an prochain.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Papier, encre noire, rouge d'édition, jaune d'affiche. Presque aucun aplat : la couleur souligne, elle ne remplit pas.<div class="nuancier"><i style="background:#f4f0e7"></i><i style="background:#181b1c"></i><i style="background:#e74b36"></i><i style="background:#e7c64e"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Lora, italique comprise pour les citations. Public Sans pour les intertitres, les faits et les boutons.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>« Une », « Programme », « Plan », « Sélection » — le vocabulaire de la presse plutôt que celui des applications.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les enseignants et les parents. Se photographie bien et s'imprime tel quel. Réserve : « Sélection » n'est pas le mot du glossaire, qui dit « Ma visite ».</dd></dl>
+  </div>
+
+  <div class="scene folio">
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>L'ORIENTATION</strong><span class="issue">édition 2026</span></div>
+            <p class="app-eyebrow">Samedi 14 novembre · 9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30</p>
+            <h3 class="cover-title">Trouvez votre voie,<br>construisez votre <em>avenir</em></h3>
+            <div class="poster"></div>
+            <div class="cover-facts">
+              <div><strong>Entrée libre</strong><br>Par l'entrée du lycée</div>
+              <div><strong>Maurice Rondeau</strong><br>Bussy-Saint-Georges</div>
+            </div>
+            <button class="action-button" style="margin-top:12px" type="button">OUVRIR LE PROGRAMME</button>
+            <div class="folio-date" style="margin-top:15px"><h3>Au sommaire</h3><span></span></div>
+            <div class="folio-fact"><b>I</b><span>Le programme de la matinée, 7 rendez-vous</span></div>
+            <div class="folio-fact"><b>II</b><span>Les 109 exposants, rangés par village</span></div>
+            <div class="folio-fact"><b>III</b><span>Le plan des deux étages</span></div>
+          </div>
+          <div class="bottom-nav"><div class="active"><b>⌂</b>Une</div><div><b>§</b>Programme</div><div><b>⌖</b>Plan</div><div><b>☆</b>Sélection</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>La une</b><span>Le slogan officiel sert de titre de couverture, et le grand 14 en filigrane rappelle la date. Un seul bouton : ouvrir le programme.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:54</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>PROGRAMME</strong><span class="issue">7 rendez-vous</span></div>
+            <div class="folio-date"><h3>Samedi matin</h3><span>FILTRER +</span></div>
+            <div class="folio-event"><span class="hour">09:30</span><div><strong>Ouverture du festival</strong><small>Accueil, sous le préau · tout public</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">10:00</span><div><strong>Concours d'ingénieurs post-bac</strong><small>Auditorium · 45 min · Prépa Campus</small></div><span>★</span></div>
+            <div class="folio-event"><span class="hour">10:00</span><div><strong>Atelier CV</strong><small>Salle 81 · 30 min · petit groupe</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">10:45</span><div><strong>Écoles de commerce : concours Accès et Sésame</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">11:00</span><div><strong>Atelier CV</strong><small>Salle 81 · 30 min</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">11:30</span><div><strong>Les études de santé et la réforme 2027</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">11:30</span><div><strong>Choisir son école de commerce</strong><small>Petite salle · table ronde</small></div><span>☆</span></div>
+            <div class="folio-event"><span class="hour">12:15</span><div><strong>Architecture : la première année</strong><small>Petite salle · 45 min</small></div><span>☆</span></div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Une</div><div class="active"><b>§</b>Programme</div><div><b>⌖</b>Plan</div><div><b>☆</b>Sélection</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Programme</b><span>Un chemin de fer : l'heure en romaine rouge, le titre en Lora, le lieu en petit gris. Les filets font tout le travail de séparation — aucune carte, aucune ombre.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>10:02</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>← ÉCOLES</strong><span class="issue">village 2</span></div>
+            <span class="profile-number">21</span>
+            <p class="app-eyebrow">Santé &amp; Soin · rez-de-chaussée</p>
+            <h3 class="profile-title">DIPLOMA SANTE</h3>
+            <p class="profile-deck">« Comprendre les études de santé et choisir un parcours qui vous ressemble. »</p>
+            <div class="folio-fact"><b>Où</b><span>Salle 21 · stand 1 · face à l'escalier</span></div>
+            <div class="folio-fact"><b>Quand</b><span>9&nbsp;h&nbsp;30 — 13&nbsp;h&nbsp;30, toute la matinée</span></div>
+            <div class="folio-fact"><b>Pour qui</b><span>Du lycée au post-bac</span></div>
+            <div class="folio-fact"><b>À découvrir</b><span>PASS, LAS, concours paramédicaux</span></div>
+            <div class="folio-actions"><button class="primary" type="button">AJOUTER</button><button type="button">VOIR LE PLAN</button></div>
+            <div class="folio-date" style="margin-top:16px"><h3>À demander</h3><span>SUR LE STAND</span></div>
+            <div class="folio-fact"><b>Admission</b><span>Quels critères, et via Parcoursup ou hors Parcoursup ?</span></div>
+            <div class="folio-fact"><b>Coût</b><span>Combien coûtent les études, quelles aides existent ?</span></div>
+            <div class="folio-fact"><b>Alternance</b><span>Possible, et à partir de quelle année ?</span></div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Une</div><div><b>§</b>Programme</div><div><b>⌖</b>Plan</div><div class="active"><b>★</b>Sélection</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Fiche exposant</b><span>Le numéro de salle en énorme, comme le folio d'une page de magazine, et une phrase de l'exposant en italique entre deux filets. Les faits sont un tableau, pas des puces.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

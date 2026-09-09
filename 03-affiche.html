@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Affiche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#C90151}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 8px}
+.titre b{font-family:'Anton',Impact,sans-serif;font-weight:400;font-size:62px;line-height:.9;color:var(--accent);letter-spacing:.005em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Anton',Impact,sans-serif;font-size:25px;line-height:1.1;letter-spacing:.01em}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.cadre{width:414px;height:868px;border-radius:52px;background:#10141B;padding:12px;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.ecran{width:390px;height:844px;border-radius:41px;overflow:hidden;position:relative}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.statut{flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:700}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#111;opacity:.35;z-index:8}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:46px}}
+
+/* ---------- Affiche : la sérigraphie continue dans la poche ---------- */
+.a{--framboise:#C90151;--turquoise:#01A1A7;--ambre:#ED9800;--marine:#003473;--papier:#FFFFFF;--noir:#141414;
+   height:100%;display:flex;flex-direction:column;background:var(--papier);color:var(--noir);
+   font-family:'DM Sans',sans-serif;position:relative}
+.a .anton{font-family:'Anton',Impact,sans-serif;font-weight:400;letter-spacing:.008em;text-transform:uppercase}
+/* le grain de l'impression */
+.grain:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;mix-blend-mode:multiply;opacity:.30;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E")}
+
+/* écran 1 : l'affiche */
+.a-poster{position:relative;background:var(--framboise);color:#fff;padding:0 24px 26px;overflow:hidden;flex:none}
+.a-poster .statut{color:#fff}
+.a-rond{position:absolute;border-radius:50%;mix-blend-mode:multiply}
+.a-poster h1{position:relative;z-index:3;margin:14px 0 0;font-size:58px;line-height:.88}
+.a-poster h1 em{font-style:normal;display:block;color:#ED9800}
+.a-slogan{position:relative;z-index:3;margin:16px 0 0;font-size:17px;line-height:1.3;font-weight:700;max-width:16ch}
+.a-quand{position:relative;z-index:3;margin-top:20px;background:#fff;color:var(--framboise);display:inline-block;
+  padding:8px 13px;font-size:15px;font-weight:700}
+.a-ou{position:relative;z-index:3;margin-top:11px;font-size:13.5px;line-height:1.45;color:#FBD3DF}
+
+.a-verbes{flex:1;min-height:0;display:flex;flex-direction:column}
+.a-verbe{flex:1;display:flex;align-items:center;justify-content:space-between;padding:0 24px;color:#fff;
+  text-decoration:none;position:relative}
+.a-verbe b{font-family:'Anton',Impact,sans-serif;font-size:33px;text-transform:uppercase;letter-spacing:.01em;line-height:1}
+.a-verbe span{font-size:13px;font-weight:700;opacity:.9;text-align:right;line-height:1.3;max-width:13ch}
+
+/* barres du haut / du bas des pages internes */
+.a-tete{display:flex;align-items:center;gap:14px;padding:2px 20px 14px}
+.a-tete h2{margin:0;font-family:'Anton',Impact,sans-serif;font-size:32px;text-transform:uppercase;letter-spacing:.01em}
+.a-pied{display:flex;flex:none;height:64px;min-height:64px;margin-top:auto;padding-bottom:0}
+.a-pied a{flex:1;display:flex;align-items:flex-start;justify-content:center;padding-top:9px;color:#fff;text-decoration:none;
+  font-size:11.5px;font-weight:700;letter-spacing:.02em}
+.a-pied a.actif{box-shadow:inset 0 6px 0 #141414}
+
+/* recherche + villages */
+.a-cherche{margin:0 20px 16px;border:2.5px solid var(--noir);display:flex;align-items:center;gap:10px;padding:12px 14px}
+.a-cherche span{color:#6B6B6B;font-size:15px}
+.a-pav{display:flex;gap:10px;padding:0 20px 16px;overflow:hidden}
+.a-pav div{flex:none;width:152px;height:112px;padding:12px;color:#fff;display:flex;flex-direction:column;justify-content:space-between}
+.a-pav b{font-family:'Anton',Impact,sans-serif;font-size:19px;line-height:1.02;text-transform:uppercase}
+.a-pav span{font-size:12.5px;font-weight:700;opacity:.92}
+.a-sect{padding:0 20px 8px;font-size:12.5px;font-weight:700;color:#6B6B6B}
+.a-ligne{display:flex;gap:14px;align-items:center;padding:13px 20px;border-top:2px solid #EDEDED}
+.a-ligne .bande{width:7px;align-self:stretch;flex:none}
+.a-ligne .t{flex:1;min-width:0}
+.a-ligne .t b{display:block;font-size:16px;font-weight:700;line-height:1.2}
+.a-ligne .t span{display:block;font-size:12.5px;color:#6B6B6B;margin-top:3px}
+.a-ligne .salle{font-family:'Anton',Impact,sans-serif;font-size:15px;background:#141414;color:#fff;padding:5px 8px 4px;flex:none}
+
+/* fiche */
+.a-bloc{padding:0 22px 22px;color:#fff;position:relative}
+.a-bloc .vil{font-size:13px;font-weight:700;opacity:.9}
+.a-bloc .salle{font-family:'Anton',Impact,sans-serif;font-size:70px;line-height:.85;margin-top:10px;text-transform:uppercase}
+.a-bloc .prec{font-size:13.5px;font-weight:700;margin-top:9px;opacity:.95}
+.a-corps{padding:20px 22px 0;flex:1}
+.a-corps h3{font-family:'Anton',Impact,sans-serif;font-size:37px;line-height:.95;margin:0 0 8px;text-transform:uppercase}
+.a-corps .meta{font-size:13.5px;color:#5E5E5E;margin:0 0 14px;font-weight:500}
+.a-corps p{font-size:14.5px;line-height:1.5;margin:0 0 16px}
+.a-btns{display:flex;gap:10px;margin-bottom:18px}
+.a-btns a{flex:1;text-align:center;text-decoration:none;font-weight:700;font-size:15px;padding:14px 6px}
+.a-b1{background:var(--noir);color:#fff}
+.a-b2{background:#fff;color:var(--noir);box-shadow:inset 0 0 0 2.5px var(--noir)}
+.a-qs{border-top:2.5px solid var(--noir);padding-top:12px}
+.a-qs b{font-family:'Anton',Impact,sans-serif;font-size:19px;text-transform:uppercase;display:block;margin-bottom:9px}
+.a-qs li{list-style:none;font-size:13.5px;line-height:1.45;margin-bottom:9px;padding-left:20px;position:relative}
+.a-qs li:before{content:"";position:absolute;left:0;top:6px;width:11px;height:11px;background:var(--turquoise)}
+.a-qs ul{margin:0;padding:0}
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Affiche</b><span>direction 03 sur 10</span></div>
+  <p class="chapo">L'affiche du festival existe déjà, elle est bonne, et elle sera partout : sur les portes du
+  lycée, dans les cartables, sur les réseaux. Cette direction la prolonge au lieu d'inventer autre chose —
+  mêmes aplats, même grain d'impression, mêmes quatre verbes, qui deviennent ici les quatre entrées de l'appli.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Les quatre encres de l'affiche, en aplats pleins et en surimpression,
+      sur papier blanc.
+      <div class="nuancier"><i style="background:#C90151"></i><i style="background:#01A1A7"></i><i style="background:#ED9800"></i><i style="background:#003473"></i><i style="background:#141414"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Anton en capitales pour tout ce qui est titre ou numéro de salle,
+      DM Sans pour le texte. Un contraste de taille très fort, jamais de gris intermédiaire.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Quatre pavés de couleur : s'informer, échanger, explorer, construire.
+      Ce sont les verbes de l'affiche, pas des mots d'application.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les lycéens, et tout le monde de loin. C'est la direction qui se
+      reconnaît le mieux en photo, sur un stand ou sur un flyer.</dd></dl>
+  </div>
+
+  <div class="scene">
+
+    <!-- ÉCRAN 1 : L'AFFICHE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="a grain">
+          <div class="a-poster">
+            <div class="a-rond" style="width:250px;height:250px;background:#01A1A7;top:-70px;right:-80px"></div>
+            <div class="a-rond" style="width:180px;height:180px;background:#ED9800;top:150px;right:-70px"></div>
+            <div class="statut"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+            <h1 class="anton">Festival<em>de l'orientation</em></h1>
+            <p class="a-slogan">Trouvez votre voie, construisez votre avenir&nbsp;!</p>
+            <div class="a-quand">Samedi 14 novembre · 9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30</div>
+            <div class="a-ou">Ensemble scolaire Maurice Rondeau, Bussy-Saint-Georges<br>Entrée libre par l'entrée du lycée</div>
+          </div>
+          <div class="a-verbes">
+            <a class="a-verbe" style="background:#003473" href="#"><b>S'informer</b><span>Le programme, 7 rendez-vous</span></a>
+            <a class="a-verbe" style="background:#01A1A7" href="#"><b>Échanger</b><span>109 exposants, 9 villages</span></a>
+            <a class="a-verbe" style="background:#ED9800;color:#241700" href="#"><b>Explorer</b><span>Le plan, 2 étages</span></a>
+            <a class="a-verbe" style="background:#141414" href="#"><b>Construire</b><span>Ma visite, 4 retenus</span></a>
+          </div>
+        </div>
+        <div class="barredom" style="background:#fff;opacity:.6"></div>
+      </div></div>
+      <figcaption><b>Accueil</b><span>L'affiche occupe le haut de l'écran, les quatre verbes occupent le bas et
+        tiennent lieu de menu. Aucun mot d'interface : on entre par une intention.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 2 : EXPOSANTS -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="a grain">
+          <div class="statut"><span>9:54</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="a-tete">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg>
+            <h2>Échanger</h2>
+          </div>
+          <div class="a-cherche">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="2.6"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+            <span>Une école, un métier, une salle…</span>
+          </div>
+          <div class="a-pav">
+            <div style="background:#C90151"><b>Santé &amp; Soin</b><span>18 exposants · RDC</span></div>
+            <div style="background:#003473"><b>Commerce, Marketing &amp; Management</b><span>13 · RDC</span></div>
+            <div style="background:#ED9800;color:#241700"><b>Ingénierie</b><span>12 · 1<sup>er</sup></span></div>
+          </div>
+          <div class="a-sect">109 exposants, par ordre alphabétique</div>
+          <div class="a-ligne"><span class="bande" style="background:#7A3FA8"></span>
+            <div class="t"><b>École d'architecture Paris-Est</b><span>École · Champs-sur-Marne · Communication, Médias &amp; Création</span></div>
+            <span class="salle">71</span></div>
+          <div class="a-ligne"><span class="bande" style="background:#003473"></span>
+            <div class="t"><b>EM Normandie</b><span>École · Commerce, Marketing &amp; Management · post-bac à doctorat</span></div>
+            <span class="salle">33</span></div>
+          <div class="a-ligne"><span class="bande" style="background:#ED9800"></span>
+            <div class="t"><b>ESIEE Paris</b><span>École d'ingénieurs · part à 11&nbsp;h&nbsp;30</span></div>
+            <span class="salle">51</span></div>
+          <div class="a-ligne"><span class="bande" style="background:#C90151"></span>
+            <div class="t"><b>Infirmier·ère en réanimation</b><span>Professionnel · hôpital de Lagny · à partir de 11&nbsp;h</span></div>
+            <span class="salle">24</span></div>
+          <div class="a-ligne"><span class="bande" style="background:#4C5FD7"></span>
+            <div class="t"><b>Université Gustave Eiffel</b><span>Université · Champs-sur-Marne · licence à doctorat</span></div>
+            <span class="salle">101</span></div>
+          <div class="a-ligne" style="border-bottom:2px solid #EDEDED"><span class="bande" style="background:#01A1A7"></span>
+            <div class="t"><b>Développeuse cybersécurité</b><span>Professionnelle · PME locale · toute la matinée</span></div>
+            <span class="salle">61</span></div>
+          <div class="a-pied">
+            <a style="background:#003473" href="#">S'informer</a>
+            <a class="actif" style="background:#01A1A7" href="#">Échanger</a>
+            <a style="background:#ED9800;color:#241700" href="#">Explorer</a>
+            <a style="background:#141414" href="#">Construire</a>
+          </div>
+        </div>
+        <div class="barredom" style="background:#fff;opacity:.55"></div>
+      </div></div>
+      <figcaption><b>Exposants</b><span>Les villages sont des pavés de couleur qu'on fait défiler ; la liste
+        garde la couleur en filet à gauche et le numéro de salle en pastille noire, lisible en marchant.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 3 : FICHE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="a grain">
+          <div style="background:#ED9800;color:#241700">
+            <div class="statut"><span>10:02</span><span>Wi-Fi&nbsp;&nbsp;99&nbsp;%</span></div>
+            <div class="a-tete" style="padding-bottom:0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#241700" stroke-width="3"><path d="M15 5l-7 7 7 7"/></svg>
+            </div>
+            <div class="a-bloc">
+              <div class="vil">Village 5 — Ingénierie, Industrie &amp; Sciences · 1<sup>er</sup> étage</div>
+              <div class="salle">Salle 51</div>
+              <div class="prec">Stand 1, à droite en sortant de l'escalier</div>
+            </div>
+          </div>
+          <div class="a-corps">
+            <h3>ESIEE Paris</h3>
+            <p class="meta">École d'ingénieurs · Noisy-le-Grand et Champs-sur-Marne · sur son stand de 9&nbsp;h&nbsp;30 à 11&nbsp;h&nbsp;30</p>
+            <p>Cycle préparatoire, diplôme d'ingénieur en numérique, électronique, systèmes embarqués,
+               biotechnologies et énergie, bachelors et MSc.</p>
+            <div class="a-btns">
+              <a class="a-b1" href="#">Ajouter à ma visite</a>
+              <a class="a-b2" href="#">Sur le plan</a>
+            </div>
+            <div class="a-qs">
+              <b>À demander sur le stand</b>
+              <ul>
+                <li>Quels sont les critères d'admission, et via Parcoursup ou hors Parcoursup ?</li>
+                <li>Combien coûtent les études, et quelles aides ou bourses existent ?</li>
+                <li>Peut-on suivre la formation en alternance, à partir de quelle année ?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="a-pied">
+            <a style="background:#003473" href="#">S'informer</a>
+            <a class="actif" style="background:#01A1A7" href="#">Échanger</a>
+            <a style="background:#ED9800;color:#241700" href="#">Explorer</a>
+            <a style="background:#141414" href="#">Construire</a>
+          </div>
+        </div>
+        <div class="barredom" style="background:#fff;opacity:.55"></div>
+      </div></div>
+      <figcaption><b>Fiche exposant</b><span>Le haut prend la couleur du village et donne le numéro de salle en
+        gros — c'est ce qu'on regarde après avoir scanné le QR code du stand.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

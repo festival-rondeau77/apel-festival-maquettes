@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#17222B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Archivo Narrow',sans-serif;font-weight:700;font-size:56px;line-height:1;color:var(--accent);letter-spacing:-.02em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Archivo Narrow',sans-serif;font-weight:700;font-size:24px;line-height:1.12}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;z-index:8;background:#f6f4e9;opacity:.4}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:44px}}
+
+/* Cadre de téléphone commun aux dix directions : 390 x 844 dans une coque sombre. */
+.phone-shell{width:414px;height:868px;max-width:none;margin:0;padding:12px;border-radius:52px;background:#10141B;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.phone-screen{position:relative;width:390px;height:844px;overflow:hidden;border-radius:41px;
+  background:var(--app-bg);color:var(--app-text);font-family:var(--app-font)}
+.phone-status{flex:none;height:52px;padding:0 26px 6px;display:flex;justify-content:space-between;align-items:flex-end;
+  font-size:13px;font-weight:600;position:relative;z-index:5}
+.phone-content{height:calc(100% - 52px);display:flex;flex-direction:column;position:relative;z-index:2}
+.screen-main{flex:1;min-height:0;overflow:hidden;padding:var(--screen-pad,18px)}
+.bottom-nav{height:84px;flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px;
+  border-top:1px solid var(--app-line);background:var(--nav-bg)}
+.bottom-nav div{text-align:center;font-size:9px;color:var(--app-muted)}
+.bottom-nav b{display:block;font-size:19px;line-height:1.1;font-weight:500;margin-bottom:3px}
+.bottom-nav .active{color:var(--concept-accent)}
+.mini-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.mini-top strong{font-family:var(--concept-display);font-size:17px}
+.avatar,.round-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--app-surface);border:1px solid var(--app-line);flex:none}
+.app-eyebrow{margin:0 0 7px;text-transform:uppercase;letter-spacing:.13em;font-size:9px;font-weight:800;color:var(--concept-accent)}
+.app-title{font-family:var(--concept-display);font-size:var(--app-title,31px);line-height:1.02;letter-spacing:var(--app-title-track,-.02em);margin:0}
+.app-subtitle{margin:8px 0 0;color:var(--app-muted);font-size:11px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:6px 9px;border-radius:999px;background:var(--app-surface);border:1px solid var(--app-line);color:var(--app-muted);font-size:9px}
+.pill.on{background:var(--concept-accent);border-color:var(--concept-accent);color:var(--accent-text);font-weight:700}
+.section-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:18px 0 9px}
+.section-label strong{font-family:var(--concept-display);font-size:14px}
+.section-label span{color:var(--concept-accent);font-size:9px;font-weight:800}
+.action-button{display:flex;justify-content:center;align-items:center;gap:7px;width:100%;border:0;border-radius:var(--button-radius,12px);
+  padding:12px;background:var(--concept-accent);color:var(--accent-text);font-weight:800;font-size:10.5px;font-family:inherit}
+
+/* --- Signal --- */
+
+.signal{
+  --concept-accent:#ffd52f;
+  --concept-display:'Archivo Narrow','Helvetica Neue',Arial,sans-serif;
+  --app-bg:#0b1014; --app-text:#f6f4e9; --app-muted:#a7b0b4; --app-surface:#171f24; --app-line:#354047;
+  --app-font:'Inter',Arial,sans-serif; --nav-bg:#11181d; --accent-text:#101315;
+  --control-radius:3px; --button-radius:3px; --screen-pad:16px; --app-title:32px; --app-title-track:-.03em;
+}
+.signal .phone-status{color:#a7b0b4}
+.signal .phone-screen{background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px);background-size:100% 26px}
+.signal .app-title{font-weight:700}
+.signal .now-banner{margin-top:15px;border:2px solid var(--concept-accent);padding:12px}
+.signal .now-banner .live{color:var(--concept-accent);font-size:9px;text-transform:uppercase;letter-spacing:.14em;font-weight:800}
+.signal .now-time{display:grid;grid-template-columns:70px 1fr;gap:10px;margin-top:8px}
+.signal .now-time b{color:var(--concept-accent);font:700 27px/1 var(--concept-display)}
+.signal .now-time strong{font-size:13px;line-height:1.15}
+.signal .now-time small{display:block;color:var(--app-muted);margin-top:5px;font-size:10px}
+.signal .signal-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:12px}
+.signal .signal-tile{min-height:84px;border:1px solid var(--app-line);background:var(--app-surface);padding:11px;display:flex;flex-direction:column;justify-content:space-between}
+.signal .signal-tile.primary{grid-column:1/-1;min-height:72px;background:var(--concept-accent);color:var(--accent-text);border-color:var(--concept-accent);flex-direction:row;align-items:center}
+.signal .signal-tile b{font-size:20px}
+.signal .signal-tile span{font-weight:700;font-size:11px}
+.signal .schedule-date{display:flex;gap:6px;margin:13px 0}
+.signal .date-box{flex:1;border:1px solid var(--app-line);padding:8px;text-align:center;font-size:9px}
+.signal .date-box.on{color:var(--accent-text);background:var(--concept-accent);border-color:var(--concept-accent);font-weight:700}
+.signal .agenda-row{display:grid;grid-template-columns:52px 1fr 25px;gap:9px;padding:11px 0;border-top:1px solid var(--app-line)}
+.signal .agenda-row .hour{color:var(--concept-accent);font-weight:700;font-size:11px}
+.signal .agenda-row strong{display:block;font-size:11px;line-height:1.25}
+.signal .agenda-row small{color:var(--app-muted);font-size:9px}
+.signal .visit-alert{background:#3d1a20;color:#ff9aa1;border-left:4px solid #ff6d78;padding:9px;margin:12px 0;font-size:9.5px;font-weight:700}
+.signal .route-line{position:relative;padding-left:25px}
+.signal .route-line::before{content:"";position:absolute;left:8px;top:8px;bottom:12px;width:2px;background:var(--app-line)}
+.signal .route-stop{position:relative;margin-bottom:8px;padding:10px;border:1px solid var(--app-line);background:var(--app-surface)}
+.signal .route-stop::before{content:"";position:absolute;left:-21px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--concept-accent);box-shadow:0 0 0 3px var(--app-bg)}
+.signal .route-stop strong{display:block;font-size:10.5px}
+.signal .route-stop small{color:var(--app-muted);font-size:9px}
+
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Signal</b><span>direction 02 sur 10</span></div>
+  <p class="chapo">Une signalétique numérique franche, faite pour décider vite dans un lieu bruyant. Carrés nets, typographie étroite, contraste maximal, et un jaune qui ne sert qu'à une chose : montrer où appuyer. C'est la variante sombre de la même intention que « Repères ».</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Noir bleuté, jaune de signal, un turquoise d'appoint. Le jaune ne décore jamais : il marque ce sur quoi il faut agir.<div class="nuancier"><i style="background:#0b1014"></i><i style="background:#ffd52f"></i><i style="background:#57d5d0"></i><i style="background:#f6f4e9"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Archivo Narrow pour les titres et les heures, Inter pour le texte. Angles vifs, rayons de bordure quasi nuls.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Quatre onglets. L'accueil est occupé par un bandeau « ce qui vient » qui prend toute la largeur.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Ceux qui n'ouvriront l'appli que trois fois dans la matinée. Réserve : très sombre, à vérifier dehors, dans la cour.</dd></dl>
+  </div>
+
+  <div class="scene signal">
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>FESTIVAL / 26</strong><div class="round-icon">?</div></div>
+            <p class="app-eyebrow">Samedi 14 novembre · Bussy-Saint-Georges</p>
+            <h3 class="app-title">TROUVEZ<br>VOTRE VOIE.</h3>
+            <div class="now-banner">
+              <span class="live">● Dans 12 minutes</span>
+              <div class="now-time"><b>10:00</b><div><strong>Concours d'ingénieurs post-bac</strong><small>Auditorium, rez-de-chaussée · entrée par le hall · 45 min</small></div></div>
+            </div>
+            <div class="signal-grid">
+              <div class="signal-tile primary"><span>OUVRIR LE PLAN</span><b>→</b></div>
+              <div class="signal-tile"><b>◎</b><span>109 EXPOSANTS<br>9 VILLAGES</span></div>
+              <div class="signal-tile"><b>◷</b><span>7 ÉVÉNEMENTS<br>DE 10 H À 13 H</span></div>
+            </div>
+            <div class="section-label" style="margin:17px 0 0"><strong>ENSUITE</strong><span>TOUT LE PROGRAMME</span></div>
+            <div class="agenda-row"><span class="hour">10:45</span><div><strong>Écoles de commerce : concours Accès et Sésame</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">11:30</span><div><strong>Les études de santé et la réforme 2027</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+          </div>
+          <div class="bottom-nav"><div class="active"><b>⌂</b>Direct</div><div><b>▦</b>Plan</div><div><b>◫</b>Exposants</div><div><b>☆</b>Ma visite</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Accueil</b><span>Le bandeau jaune dit ce qui vient, et rien d'autre. Les trois pavés dessous sont les seules destinations : le plan, les exposants, le programme.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:52</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>PROGRAMME</strong><div class="round-icon">⌕</div></div>
+            <h3 class="app-title">CE MATIN</h3>
+            <div class="schedule-date"><div class="date-box on">TOUT</div><div class="date-box">CONFÉRENCES</div><div class="date-box">ATELIERS</div></div>
+            <div class="agenda-row"><span class="hour">9:30</span><div><strong>Ouverture du festival</strong><small>Accueil, sous le préau</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">10:00</span><div><strong>Concours d'ingénieurs post-bac</strong><small>Auditorium · 45 min · Prépa Campus</small></div><span>★</span></div>
+            <div class="agenda-row"><span class="hour">10:00</span><div><strong>Atelier CV</strong><small>Salle 81 · 30 min · petit groupe</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">10:45</span><div><strong>Écoles de commerce : concours Accès et Sésame</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">11:00</span><div><strong>Atelier CV</strong><small>Salle 81 · 30 min</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">11:30</span><div><strong>Les études de santé et la réforme 2027</strong><small>Auditorium · 45 min</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">11:30</span><div><strong>Choisir son école de commerce</strong><small>Petite salle · table ronde</small></div><span>☆</span></div>
+            <div class="agenda-row"><span class="hour">12:15</span><div><strong>Architecture : la première année</strong><small>Petite salle · 45 min</small></div><span>☆</span></div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Direct</div><div><b>▦</b>Plan</div><div class="active"><b>◷</b>Programme</div><div><b>☆</b>Ma visite</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Programme</b><span>Toute la matinée d'un seul écran, sans replier ni faire défiler. Les deux ateliers CV et les deux rendez-vous de 11&nbsp;h&nbsp;30 se repèrent à l'heure répétée.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:58</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>MA VISITE / 04</strong><div class="round-icon">↗</div></div>
+            <h3 class="app-title">MON<br>PARCOURS</h3>
+            <div class="visit-alert">! DEUX RENDEZ-VOUS À 10:00 · IL FAUT CHOISIR</div>
+            <div class="route-line">
+              <div class="route-stop"><strong>10:00 · Atelier CV</strong><small>Salle 81 · 30 min</small></div>
+              <div class="route-stop"><strong>10:45 · Écoles de commerce</strong><small>Auditorium · 45 min</small></div>
+              <div class="route-stop"><strong>11:30 · Les études de santé et la réforme 2027</strong><small>Auditorium · 45 min</small></div>
+    <div class="route-stop"><strong>Quand j'ai un créneau · DIPLOMA SANTE</strong><small>Salle 21 · stand 1 · présent jusqu'à 13&nbsp;h&nbsp;30</small></div>
+            </div>
+            <button class="action-button" type="button">VOIR LE PARCOURS SUR LE PLAN →</button>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Direct</div><div><b>▦</b>Plan</div><div><b>◷</b>Programme</div><div class="active"><b>★</b>Ma visite</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Ma visite</b><span>L'appli ne résout pas le conflit à la place du visiteur : elle le signale en rouge et le laisse trancher. Le dernier arrêt n'a pas d'heure — c'est un stand, on y passe quand on peut.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

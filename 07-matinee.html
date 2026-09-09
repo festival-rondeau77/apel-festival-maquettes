@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matinée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#0A6E74}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:66px;line-height:.95;color:var(--accent)}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Instrument Serif',Georgia,serif;font-size:28px;line-height:1.05}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:4px}
+.cadre{width:414px;height:868px;border-radius:52px;background:#10141B;padding:12px;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.ecran{width:390px;height:844px;border-radius:41px;overflow:hidden;position:relative}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.statut{flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:600}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#062A45;opacity:.25;z-index:8}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:50px}}
+
+/* ---------- Matinée : l'appli qui regarde l'heure ---------- */
+.m{--fond:#F2F7F7;--encre:#08283F;--gris:#5A7387;--trait:#D7E3E5;--turquoise:#0A6E74;--ambre:#ED9800;
+   --framboise:#C90151;--carte:#FFFFFF;
+   height:100%;display:flex;flex-direction:column;background:var(--fond);color:var(--encre);font-family:'Figtree',sans-serif}
+.m .statut{color:var(--gris)}
+.m .chiffre{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-variant-numeric:lining-nums}
+
+.m-haut{padding:2px 24px 0;display:flex;justify-content:space-between;align-items:baseline}
+.m-haut b{font-size:15px;font-weight:700}
+.m-haut span{font-size:12.5px;color:var(--gris)}
+
+.m-cadran{position:relative;padding:2px 0 0;text-align:center}
+.m-cadran .heure{position:absolute;left:0;right:0;top:74px;font-size:62px;line-height:1;color:var(--encre)}
+.m-cadran .reste{position:absolute;left:0;right:0;top:146px;font-size:13.5px;color:var(--gris);font-weight:600}
+
+.m-bloc{padding:0 20px;flex:1;min-height:0;overflow:hidden}
+.m-etiq{font-size:12.5px;font-weight:700;color:var(--gris);margin:12px 0 8px;display:flex;align-items:center;gap:9px}
+.m-etiq:after{content:"";flex:1;height:1px;background:var(--trait)}
+
+.m-carte{background:var(--carte);border-radius:16px;padding:14px 16px;border:1px solid var(--trait)}
+.m-carte.maintenant{border:0;background:linear-gradient(180deg,#0A6E74,#0A5A63);color:#fff}
+.m-carte .compte{font-size:13px;font-weight:700;display:flex;justify-content:space-between;margin-bottom:8px}
+.m-carte.maintenant .compte{color:#9FE4E7}
+.m-carte h3{margin:0 0 6px;font-size:18.5px;line-height:1.25;font-weight:700}
+.m-carte p{margin:0;font-size:13.5px;line-height:1.4;opacity:.85}
+.m-actions{display:flex;gap:9px;margin-top:14px}
+.m-actions a{flex:1;text-align:center;text-decoration:none;font-size:14px;font-weight:700;padding:11px 6px;border-radius:11px}
+.m-a1{background:#fff;color:#0A5A63}
+.m-a2{background:rgba(255,255,255,.16);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+
+.m-alerte{display:flex;gap:12px;align-items:flex-start;background:#FDEBF1;border-radius:14px;padding:13px 15px;margin-top:10px}
+.m-alerte .pt{width:8px;height:8px;border-radius:50%;background:var(--framboise);margin-top:6px;flex:none}
+.m-alerte b{display:block;font-size:14.5px;line-height:1.3}
+.m-alerte span{display:block;font-size:12.5px;color:#7C4258;margin-top:2px}
+
+.m-suite{display:flex;gap:14px;padding:10px 2px;border-bottom:1px solid var(--trait);align-items:flex-start}
+.m-suite .h{width:58px;flex:none;font-size:25px;line-height:1;color:var(--turquoise)}
+.m-suite .t b{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
+.m-suite .t span{display:block;font-size:12.5px;color:var(--gris);margin-top:2px}
+
+/* frise du programme */
+.m-frise{flex:1;min-height:0;overflow:hidden;padding:0 20px}
+.m-ev{display:flex;gap:14px;padding:12px 0;align-items:flex-start;position:relative}
+.m-ev .h{width:60px;flex:none;font-size:26px;line-height:1;color:var(--encre)}
+.m-ev .barre{width:3px;flex:none;border-radius:2px;align-self:stretch;background:var(--turquoise)}
+.m-ev .t{flex:1;min-width:0}
+.m-ev .t b{display:block;font-size:15px;font-weight:600;line-height:1.3}
+.m-ev .t span{display:block;font-size:12.5px;color:var(--gris);margin-top:3px}
+.m-ev.passe{opacity:.42}
+.m-ev.passe .barre{background:#B8C6CC}
+.m-maintenant{display:flex;align-items:center;gap:10px;margin:6px 0}
+.m-maintenant .l{flex:1;height:2px;background:var(--framboise)}
+.m-maintenant b{font-size:12px;font-weight:800;color:var(--framboise)}
+.m-etoile{color:var(--ambre);flex:none;margin-top:2px}
+
+/* ma matinée */
+.m-pas{display:flex;gap:14px;align-items:flex-start;padding:0 0 2px}
+.m-pas .h{width:60px;flex:none;font-size:24px;line-height:1.1;color:var(--encre);padding-top:2px}
+.m-pas .rail{width:26px;flex:none;display:flex;flex-direction:column;align-items:center;align-self:stretch}
+.m-pas .pastille{width:13px;height:13px;border-radius:50%;background:var(--turquoise);margin-top:5px;flex:none}
+.m-pas .fil{width:2px;flex:1;background:var(--trait);min-height:22px}
+.m-pas .t{flex:1;min-width:0;padding-bottom:14px}
+.m-pas .t b{display:block;font-size:15px;font-weight:700;line-height:1.3}
+.m-pas .t span{display:block;font-size:12.5px;color:var(--gris);margin-top:2px}
+.m-marche{font-size:12.5px;color:var(--gris);display:flex;align-items:center;gap:7px;padding:2px 0 12px}
+.m-avert{background:#FFF4E0;border-radius:11px;padding:9px 12px;font-size:12.5px;color:#7A5200;line-height:1.4;margin:2px 0 12px}
+
+/* barre basse flottante */
+.m-nav{flex:none;margin:auto 16px 22px;background:#08283F;border-radius:22px;display:flex;padding:7px;gap:4px}
+.m-nav a{flex:1;text-decoration:none;color:#8FA9BC;display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 4px;border-radius:16px;font-size:13px;font-weight:700}
+.m-nav a.actif{background:#fff;color:#08283F}
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Matinée</b><span>direction 07 sur 10</span></div>
+  <p class="chapo">Le festival dure quatre heures et rien de plus. Cette direction fait de l'heure le sujet
+  principal : l'écran d'ouverture n'est pas un menu mais un cadran, la matinée entière tenant dans un demi-cercle
+  qui se remplit. L'appli répond d'abord à « qu'est-ce que je fais maintenant », et prévient quand un exposant
+  s'apprête à partir.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Un blanc froid de salle de cours, le turquoise de l'affiche pour le
+      présent, l'ambre pour le temps, la framboise pour ce qui va se fermer.
+      <div class="nuancier"><i style="background:#F2F7F7"></i><i style="background:#0A6E74"></i><i style="background:#ED9800"></i><i style="background:#C90151"></i><i style="background:#08283F"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Instrument Serif, réservée aux heures : les chiffres deviennent
+      l'image. Figtree pour tout le reste, sans exception.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Une barre flottante à trois entrées. Le reste s'atteint depuis
+      ce qui se passe maintenant.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Ceux qui viennent une heure et repartent : il faut leur dire quoi
+      faire tout de suite, pas leur ouvrir un catalogue.</dd></dl>
+  </div>
+
+  <div class="scene">
+
+    <!-- ÉCRAN 1 : MAINTENANT -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="m">
+          <div class="statut"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="m-haut"><b>Festival de l'Orientation</b><span>samedi 14 novembre</span></div>
+          <div class="m-cadran">
+            <svg width="390" height="172" viewBox="0 0 300 172" aria-hidden="true">
+              <path d="M20 150 A130 130 0 0 1 280 150" fill="none" stroke="#DCE8EA" stroke-width="14" stroke-linecap="round"/>
+              <path d="M20 150 A130 130 0 0 1 280 150" fill="none" stroke="#ED9800" stroke-width="14" stroke-linecap="round"
+                    stroke-dasharray="31 500"/>
+              <circle cx="24" cy="120" r="9" fill="#fff" stroke="#ED9800" stroke-width="5"/>
+              <text x="18" y="169" font-family="Figtree,sans-serif" font-size="12" font-weight="600" fill="#5A7387">9&nbsp;h&nbsp;30</text>
+              <text x="245" y="169" font-family="Figtree,sans-serif" font-size="12" font-weight="600" fill="#5A7387">13&nbsp;h&nbsp;30</text>
+            </svg>
+            <div class="heure chiffre">9:48</div>
+            <div class="reste">il reste 3&nbsp;h&nbsp;42 de festival</div>
+          </div>
+
+          <div class="m-bloc">
+            <div class="m-etiq">Tout de suite</div>
+            <div class="m-carte maintenant">
+              <div class="compte"><span>Commence dans 12 minutes</span><span>10&nbsp;h&nbsp;00 – 10&nbsp;h&nbsp;45</span></div>
+              <h3>Concours d'ingénieurs post-bac : comparer les concours et leurs écoles</h3>
+              <p>Auditorium, rez-de-chaussée — 200 places, avec Prépa Campus.</p>
+              <div class="m-actions"><a class="m-a1" href="#">M'y rendre</a><a class="m-a2" href="#">Pas cette fois</a></div>
+            </div>
+
+            <div class="m-alerte">
+              <span class="pt"></span>
+              <div><b>ESIEE Paris repart à 11&nbsp;h&nbsp;30</b>
+                <span>Salle 51, 1<sup>er</sup> étage. C'est dans ta visite : à voir avant la conférence de 11&nbsp;h&nbsp;30.</span></div>
+            </div>
+
+            <div class="m-etiq">Ensuite</div>
+            <div class="m-suite"><div class="h chiffre">10:45</div>
+              <div class="t"><b>Écoles de commerce : les concours Accès et Sésame</b><span>Auditorium · 45 min</span></div>
+              <svg class="m-etoile" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>
+            </div>
+            <div class="m-suite" style="border:0"><div class="h chiffre">11:30</div>
+              <div class="t"><b>Les études de santé et la réforme 2027</b><span>Auditorium · 45 min</span></div>
+              <svg class="m-etoile" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg>
+            </div>
+          </div>
+
+          <nav class="m-nav">
+            <a class="actif" href="#">Maintenant</a><a href="#">Exposants</a><a href="#">Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Maintenant</b><span>Le cadran dit combien de matinée il reste. Dessous, une seule chose à
+        faire tout de suite, et l'avertissement qui compte : cet exposant-là part avant midi.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 2 : PROGRAMME -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="m">
+          <div class="statut"><span>9:52</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="m-haut"><b>Le programme</b><span>7 événements</span></div>
+          <div class="m-frise">
+            <div class="m-ev passe"><div class="h chiffre">9:30</div><div class="barre"></div>
+              <div class="t"><b>Ouverture des portes</b><span>Accueil sous le préau, plan papier et bénévoles</span></div></div>
+            <div class="m-maintenant"><b>9:52</b><span class="l"></span></div>
+            <div class="m-ev"><div class="h chiffre">10:00</div><div class="barre" style="background:#0A6E74"></div>
+              <div class="t"><b>Concours d'ingénieurs post-bac : comparer les concours et leurs écoles</b>
+                <span>Conférence · Auditorium · Prépa Campus · jusqu'à 10&nbsp;h&nbsp;45</span></div>
+              <svg class="m-etoile" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+                        <div class="m-ev"><div class="h chiffre">10:00</div><div class="barre" style="background:#2E7D32"></div>
+              <div class="t"><b>Atelier CV</b><span>Atelier · Salle 81 · jusqu'à 10&nbsp;h&nbsp;30 · petit groupe</span></div></div>
+            <div class="m-ev"><div class="h chiffre">10:45</div><div class="barre"></div>
+              <div class="t"><b>Écoles de commerce : tout comprendre sur les concours Accès et Sésame</b>
+                <span>Conférence · Auditorium · jusqu'à 11&nbsp;h&nbsp;30</span></div>
+              <svg class="m-etoile" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+            <div class="m-ev"><div class="h chiffre">11:00</div><div class="barre" style="background:#2E7D32"></div>
+              <div class="t"><b>Atelier CV</b><span>Atelier · Salle 81 · jusqu'à 11&nbsp;h&nbsp;30</span></div></div>
+            <div class="m-ev"><div class="h chiffre">11:30</div><div class="barre"></div>
+              <div class="t"><b>Les études de santé et la réforme 2027</b>
+                <span>Conférence · Auditorium · jusqu'à 12&nbsp;h&nbsp;15</span></div>
+              <svg class="m-etoile" width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+            <div class="m-ev"><div class="h chiffre">11:30</div><div class="barre" style="background:#003473"></div>
+              <div class="t"><b>Écoles de commerce : comment choisir la bonne école pour son projet ?</b>
+                <span>Table ronde · Petite salle · en même temps que la conférence santé</span></div></div>
+            <div class="m-ev"><div class="h chiffre">12:15</div><div class="barre" style="background:#7A3FA8"></div>
+              <div class="t"><b>Architecture : la première année, l'admission, la réforme 2027</b>
+                <span>Conférence · Petite salle · jusqu'à 13&nbsp;h&nbsp;00</span></div></div>
+          </div>
+          <nav class="m-nav">
+            <a class="actif" href="#">Maintenant</a><a href="#">Exposants</a><a href="#">Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Programme</b><span>La même matinée déroulée, avec un trait rouge à l'heure qu'il est. Ce qui
+        est passé s'efface au lieu de disparaître ; les chevauchements se lisent sans effort.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 3 : MA MATINÉE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="m">
+          <div class="statut"><span>10:26</span><span>Wi-Fi&nbsp;&nbsp;99&nbsp;%</span></div>
+          <div class="m-haut"><b>Ma matinée</b><span>6 étapes, 2 étages</span></div>
+          <div class="m-frise" style="padding-top:10px">
+            <div class="m-pas"><div class="h chiffre">10:00</div>
+              <div class="rail"><span class="pastille" style="background:#B8C6CC"></span><span class="fil"></span></div>
+              <div class="t" style="opacity:.45"><b>Concours d'ingénieurs post-bac</b><span>Auditorium · en cours, jusqu'à 10&nbsp;h&nbsp;45</span></div></div>
+
+            <div class="m-pas"><div class="h chiffre">10:50</div>
+              <div class="rail"><span class="pastille"></span><span class="fil"></span></div>
+              <div class="t"><b>ESIEE Paris</b><span>Salle 51, 1<sup>er</sup> étage · repart à 11&nbsp;h&nbsp;30</span>
+                <div class="m-marche">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v9M12 13l-4 7M12 13l4 7M7 8l5-3 5 3"/></svg>
+                  4 minutes depuis l'auditorium, escalier au bout du couloir des salles 30</div></div></div>
+
+            <div class="m-pas"><div class="h chiffre">11:10</div>
+              <div class="rail"><span class="pastille"></span><span class="fil"></span></div>
+              <div class="t"><b>Cybersécurité — PME locale</b><span>Salle 61, 1<sup>er</sup> étage · toute la matinée</span>
+                <div class="m-marche">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v9M12 13l-4 7M12 13l4 7M7 8l5-3 5 3"/></svg>
+                  2 minutes, même étage</div></div></div>
+
+            <div class="m-pas"><div class="h chiffre">11:30</div>
+              <div class="rail"><span class="pastille" style="background:#C90151"></span><span class="fil"></span></div>
+              <div class="t"><b>Les études de santé et la réforme 2027</b><span>Auditorium, rez-de-chaussée</span>
+                <div class="m-avert">Il faut redescendre : pars de la salle 61 à 11&nbsp;h&nbsp;24 au plus tard.</div></div></div>
+
+            <div class="m-pas"><div class="h chiffre">12:15</div>
+              <div class="rail"><span class="pastille" style="background:#ED9800"></span><span class="fil"></span></div>
+              <div class="t"><b>Pause</b><span>Food-trucks dans la cour d'honneur</span></div></div>
+
+            <div class="m-pas"><div class="h chiffre">12:30</div>
+              <div class="rail"><span class="pastille"></span></div>
+              <div class="t"><b>Université Gustave Eiffel</b><span>Salle 101, rez-de-chaussée · jusqu'à 13&nbsp;h&nbsp;30</span></div></div>
+          </div>
+          <nav class="m-nav">
+            <a class="actif" href="#">Maintenant</a><a href="#">Exposants</a><a href="#">Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Ma matinée</b><span>Ce que le visiteur a retenu, remis dans l'ordre de l'horloge et du
+        bâtiment, avec les temps de marche et l'heure à laquelle il faut partir.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

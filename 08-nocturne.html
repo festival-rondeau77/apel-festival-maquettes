@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nocturne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#0B2E4C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:56px;line-height:1;color:var(--accent);letter-spacing:-.02em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Space Grotesk',sans-serif;font-size:22px;letter-spacing:-.01em}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:4px}
+.cadre{width:414px;height:868px;border-radius:52px;background:#10141B;padding:12px;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.ecran{width:390px;height:844px;border-radius:41px;overflow:hidden;position:relative}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#000;z-index:9}
+.statut{flex:none;height:52px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 6px;font-size:13px;font-weight:600}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;background:#7FA6C4;opacity:.5;z-index:8}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:44px}}
+
+/* ---------- Nocturne : sombre, pour un téléphone au fond d'une poche ---------- */
+.n{--fond:#071A2E;--surf:#0E2942;--surf2:#143A5D;height:100%;display:flex;flex-direction:column;background:#071A2E;color:#E9F2FB;font-family:'Inter',sans-serif}
+.n{--trait:#1E4468;--gris:#8FAAC8;--turquoise:#3ED0D6;--framboise:#FF6B9D;--ambre:#FFB13D;--indigo:#8EA2FF}
+.n:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 60% at 50% -10%, rgba(62,208,214,.16), transparent 60%)}
+.n .statut{color:#8FAAC8}
+.n .gk{font-family:'Space Grotesk',sans-serif}
+.n>*{position:relative}
+
+.n-tete{padding:6px 22px 4px}
+.n-tete h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:27px;line-height:1.1;margin:0 0 6px;letter-spacing:-.02em}
+.n-tete p{margin:0;font-size:14px;line-height:1.45;color:var(--gris)}
+.n-corps{flex:1;min-height:0;overflow:hidden;padding:0 22px}
+
+.n-q{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin:15px 0 9px}
+.n-q small{display:block;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:400;color:var(--gris);margin-top:3px}
+.n-chips{display:flex;flex-wrap:wrap;gap:7px}
+.n-chip{border:1px solid var(--trait);background:var(--surf);color:#CFE0F0;border-radius:999px;padding:7px 12px;
+  font-size:12.5px;font-weight:500;display:flex;align-items:center;gap:7px}
+.n-chip .pt{width:7px;height:7px;border-radius:50%;flex:none}
+.n-chip.on{background:rgba(62,208,214,.16);border-color:var(--turquoise);color:#DFFAFB;
+  box-shadow:0 0 0 1px rgba(62,208,214,.35), 0 6px 20px -8px rgba(62,208,214,.8)}
+.n-chip.on2{background:rgba(255,107,157,.15);border-color:var(--framboise);color:#FFE0EC;
+  box-shadow:0 0 0 1px rgba(255,107,157,.3), 0 6px 20px -8px rgba(255,107,157,.8)}
+
+.n-cta{margin:auto 22px 12px;display:block;text-align:center;text-decoration:none;background:var(--turquoise);color:#04202A;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;padding:16px;border-radius:16px}
+.n-passer{text-align:center;font-size:13px;color:var(--gris);padding-bottom:8px}
+
+/* recherche + filtres */
+.n-cherche{display:flex;align-items:center;gap:10px;background:var(--surf);border:1px solid var(--trait);
+  border-radius:14px;padding:12px 14px;margin:2px 0 12px;color:var(--gris);font-size:14.5px}
+.n-filtres{display:flex;gap:8px;margin-bottom:14px;overflow:hidden}
+.n-filtres .f{flex:none;font-size:12.5px;font-weight:600;border-radius:999px;padding:7px 12px;display:flex;align-items:center;gap:6px;
+  background:rgba(62,208,214,.16);color:#CFF6F8;border:1px solid rgba(62,208,214,.5)}
+.n-filtres .f.plus{background:var(--surf);color:var(--gris);border-color:var(--trait)}
+.n-compte{font-size:12.5px;color:var(--gris);margin-bottom:10px}
+
+.n-carte{background:var(--surf);border:1px solid var(--trait);border-radius:16px;padding:14px 15px;margin-bottom:10px;
+  display:flex;gap:13px;align-items:flex-start}
+.n-carte .bd{width:4px;border-radius:3px;align-self:stretch;flex:none}
+.n-carte .t{flex:1;min-width:0}
+.n-carte .t b{display:block;font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:600;line-height:1.2}
+.n-carte .t .sub{display:block;font-size:12.5px;color:var(--gris);margin-top:4px;line-height:1.4}
+.n-carte .t .bas{display:flex;gap:8px;margin-top:9px;align-items:center;flex-wrap:wrap}
+.n-badge{font-size:11.5px;font-weight:600;border-radius:7px;padding:4px 8px;background:var(--surf2);color:#CBDCEC}
+.n-badge.amb{background:rgba(255,177,61,.16);color:#FFCE86}
+.n-badge.fra{background:rgba(255,107,157,.15);color:#FFAECB}
+.n-etoile{flex:none;color:#4E6E8F}
+.n-etoile.on{color:var(--framboise)}
+
+/* plan */
+.n-bascule{display:flex;background:var(--surf);border:1px solid var(--trait);border-radius:13px;padding:4px;margin:4px 0 14px}
+.n-bascule span{flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:9px 0;border-radius:9px;color:var(--gris)}
+.n-bascule span.on{background:var(--surf2);color:#EAF4FF}
+.n-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--gris);margin-top:12px}
+.n-leg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+
+/* barre basse */
+.n-proche{margin-top:14px}
+.n-proche div{padding:11px 0;border-top:1px solid var(--trait)}
+.n-proche b{display:block;font-size:14px;font-weight:600}
+.n-proche span{display:block;font-size:12.5px;color:var(--gris);margin-top:3px}
+.n-nav{display:flex;padding:10px 10px 24px;background:rgba(7,26,46,.9);border-top:1px solid var(--trait);
+  backdrop-filter:blur(8px)}
+.n-nav a{flex:1;text-decoration:none;color:#6E8CAC;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:600}
+.n-nav a.actif{color:var(--turquoise)}
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Nocturne</b><span>direction 08 sur 10</span></div>
+  <p class="chapo">La seule direction sombre, et la seule qui commence par une question plutôt que par un menu :
+  « qu'est-ce qui t'intéresse ? ». Le visiteur choisit deux ou trois domaines, l'appli ne lui montre plus que
+  les exposants concernés, et le plan s'allume aux endroits qui le regardent. C'est le registre des applications
+  que les lycéens utilisent déjà.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Un bleu de nuit tiré du marine de l'affiche, et les trois autres encres
+      en lumière plutôt qu'en aplat.
+      <div class="nuancier"><i style="background:#071A2E"></i><i style="background:#0E2942"></i><i style="background:#3ED0D6"></i><i style="background:#FF6B9D"></i><i style="background:#FFB13D"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Space Grotesk pour les titres, Inter pour le texte. Des tailles
+      modérées, beaucoup d'espace : c'est la lumière qui hiérarchise, pas le corps.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Quatre onglets en bas, mais l'entrée se fait par les centres
+      d'intérêt : tout ce qui suit est déjà filtré.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les lycéens et étudiants qui viennent seuls. Réserve : un écran sombre
+      se lit moins bien en plein soleil dans la cour — à tester le jour J.</dd></dl>
+  </div>
+
+  <div class="scene">
+
+    <!-- ÉCRAN 1 : PRÉPARER MA VISITE -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="n">
+          <div class="statut"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="n-tete">
+            <h2>Qu'est-ce qui t'intéresse&nbsp;?</h2>
+            <p>Deux réponses suffisent. Elles restent sur ton téléphone et se changent à tout moment.</p>
+          </div>
+          <div class="n-corps">
+            <div class="n-q">Les domaines<small>Choisis-en un ou plusieurs</small></div>
+            <div class="n-chips">
+              <span class="n-chip on"><i class="pt" style="background:#FF6B9D"></i>Santé &amp; Soin</span>
+              <span class="n-chip on"><i class="pt" style="background:#3ED0D6"></i>Numérique &amp; Cybersécurité</span>
+              <span class="n-chip"><i class="pt" style="background:#FFB13D"></i>Ingénierie, Industrie &amp; Sciences</span>
+              <span class="n-chip"><i class="pt" style="background:#8EA2FF"></i>Commerce, Marketing &amp; Management</span>
+              <span class="n-chip"><i class="pt" style="background:#C79BFF"></i>Communication, Médias &amp; Création</span>
+              <span class="n-chip"><i class="pt" style="background:#6FD39A"></i>Formations professionnelles</span>
+              <span class="n-chip"><i class="pt" style="background:#7FD3D6"></i>Banque, Finance &amp; Droit</span>
+              <span class="n-chip"><i class="pt" style="background:#FFC98E"></i>Services, Éducation &amp; Sécurité</span>
+              <span class="n-chip"><i class="pt" style="background:#9AB3CE"></i>Orientation générale</span>
+            </div>
+
+            <div class="n-q">Où tu en es<small>Pour n'afficher que les formations accessibles</small></div>
+            <div class="n-chips">
+              <span class="n-chip">3<sup>e</sup></span>
+              <span class="n-chip">Seconde</span>
+              <span class="n-chip">Première</span>
+              <span class="n-chip on2">Terminale</span>
+              <span class="n-chip">Après le bac</span>
+              <span class="n-chip">Parent</span>
+            </div>
+          </div>
+          <a class="n-cta" href="#">Voir mes 23 exposants</a>
+          <div class="n-passer">Tout voir sans filtrer</div>
+          <nav class="n-nav">
+            <a class="actif" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.7-.9 1.3v.4"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg>Préparer</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>Exposants</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Préparer ma visite</b><span>Le premier écran de l'appli n'est pas un sommaire : c'est une
+        question. Deux domaines cochés suffisent à ramener 109 exposants à une vingtaine.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 2 : EXPOSANTS -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="n">
+          <div class="statut"><span>9:52</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="n-tete"><h2>Exposants</h2></div>
+          <div class="n-corps">
+            <div class="n-cherche">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>
+              Une école, un métier, une salle…
+            </div>
+            <div class="n-filtres">
+              <span class="f">Santé &amp; Soin
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+              <span class="f">Numérique
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M6 6l12 12M18 6L6 18"/></svg></span>
+              <span class="f plus">Terminale</span>
+              <span class="f plus">+ Filtrer</span>
+            </div>
+            <div class="n-compte">23 exposants · 6 présents seulement le matin</div>
+
+            <div class="n-carte"><span class="bd" style="background:#FF6B9D"></span>
+              <div class="t"><b>DIPLOMA SANTE</b>
+                <span class="sub">Prépa · Santé &amp; Soin · préparations aux concours paramédicaux</span>
+                <span class="bas"><i class="n-badge">Salle 21 · RDC</i><i class="n-badge">9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30</i></span></div>
+              <svg class="n-etoile on" width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+
+            <div class="n-carte"><span class="bd" style="background:#FF6B9D"></span>
+              <div class="t"><b>Infirmier·ère en réanimation</b>
+                <span class="sub">Professionnel · hôpital de Lagny · vient raconter son métier</span>
+                <span class="bas"><i class="n-badge">Salle 24 · RDC</i><i class="n-badge amb">à partir de 11&nbsp;h</i></span></div>
+              <svg class="n-etoile" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+
+            <div class="n-carte"><span class="bd" style="background:#3ED0D6"></span>
+              <div class="t"><b>Développeuse cybersécurité</b>
+                <span class="sub">Professionnelle · PME locale · alternance et reconversion</span>
+                <span class="bas"><i class="n-badge">Salle 61 · 1<sup>er</sup></i><i class="n-badge">9&nbsp;h&nbsp;30 – 13&nbsp;h&nbsp;30</i></span></div>
+              <svg class="n-etoile" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+
+            <div class="n-carte"><span class="bd" style="background:#3ED0D6"></span>
+              <div class="t"><b>ESIEE Paris</b>
+                <span class="sub">École d'ingénieurs · numérique, systèmes embarqués, biotechnologies</span>
+                <span class="bas"><i class="n-badge">Salle 51 · 1<sup>er</sup></i><i class="n-badge fra">repart à 11&nbsp;h&nbsp;30</i></span></div>
+              <svg class="n-etoile on" width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3.6 2.5 5.2 5.7.8-4.1 4 1 5.7-5.1-2.7-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/></svg></div>
+          </div>
+          <nav class="n-nav">
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.7-.9 1.3v.4"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg>Préparer</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a class="actif" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>Exposants</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Exposants</b><span>Les filtres restent visibles et se retirent d'un geste. Chaque carte dit
+        la salle, l'étage, et surtout l'horaire de présence — l'information qui manque le plus souvent.</span></figcaption>
+    </figure>
+
+    <!-- ÉCRAN 3 : PLAN -->
+    <figure class="tel">
+      <div class="cadre"><div class="ecran"><div class="ile"></div>
+        <div class="n">
+          <div class="statut"><span>9:56</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+          <div class="n-tete"><h2>Plan</h2></div>
+          <div class="n-corps">
+            <div class="n-bascule"><span class="on">Rez-de-chaussée</span><span>1<sup>er</sup> étage</span></div>
+            <svg width="346" height="376" viewBox="0 0 346 376" font-family="Inter,sans-serif">
+              <rect x="2" y="2" width="342" height="372" rx="14" fill="#0A2138" stroke="#1E4468"/>
+              <!-- Santé -->
+              <rect x="14" y="14" width="156" height="98" rx="10" fill="rgba(255,107,157,.20)" stroke="#FF6B9D" stroke-width="1.5"/>
+              <text x="26" y="36" fill="#FFB6D0" font-size="12" font-weight="700">2 · Santé &amp; Soin</text>
+              <text x="26" y="54" fill="#E7B9CB" font-size="10.5">Salles 21 · 22 · 23 · 24</text>
+              <text x="26" y="72" fill="#E7B9CB" font-size="10.5">18 exposants</text>
+              <circle cx="26" cy="92" r="4" fill="#FF6B9D"/><text x="36" y="96" fill="#FFD9E6" font-size="10">2 dans ma visite</text>
+              <!-- Commerce -->
+              <rect x="176" y="14" width="156" height="98" rx="10" fill="rgba(142,162,255,.16)" stroke="#8EA2FF" stroke-width="1.5"/>
+              <text x="188" y="36" fill="#BFC9FF" font-size="12" font-weight="700">3 · Commerce</text>
+              <text x="188" y="52" fill="#AEB8E8" font-size="10">Marketing &amp; Management</text>
+              <text x="188" y="70" fill="#AEB8E8" font-size="10.5">Salles 31 à 35</text>
+              <text x="188" y="86" fill="#AEB8E8" font-size="10.5">13 exposants</text>
+              <!-- couloir -->
+              <rect x="14" y="120" width="318" height="30" rx="8" fill="#0E2942" stroke="#1E4468" stroke-dasharray="5 5"/>
+              <text x="118" y="140" fill="#6E8CAC" font-size="10.5">couloir principal</text>
+              <path d="M300 128 v14 M294 136 l6 6 6-6" stroke="#8FAAC8" stroke-width="1.6" fill="none"/>
+              <text x="228" y="140" fill="#8FAAC8" font-size="10">escalier ↑ 1ᵉʳ</text>
+              <!-- form pro -->
+              <rect x="14" y="158" width="102" height="92" rx="10" fill="rgba(111,211,154,.16)" stroke="#6FD39A" stroke-width="1.5"/>
+              <text x="24" y="180" fill="#A8E8C4" font-size="11" font-weight="700">8 · Formations</text>
+              <text x="24" y="195" fill="#A8E8C4" font-size="11" font-weight="700">professionnelles</text>
+              <text x="24" y="216" fill="#9CCBB2" font-size="10.5">Salles 81 · 82 · 83</text>
+              <text x="24" y="232" fill="#9CCBB2" font-size="10.5">12 exposants</text>
+              <!-- conférences -->
+              <rect x="122" y="158" width="122" height="92" rx="10" fill="rgba(62,208,214,.18)" stroke="#3ED0D6" stroke-width="1.5"/>
+              <text x="132" y="180" fill="#9EEDF1" font-size="11.5" font-weight="700">11 · Conférences</text>
+              <text x="132" y="200" fill="#93CDD2" font-size="10">Auditorium · 200 places</text>
+              <text x="132" y="216" fill="#93CDD2" font-size="10">Petite salle · 40 places</text>
+              <circle cx="132" cy="234" r="4" fill="#3ED0D6"/><text x="142" y="238" fill="#CFF6F8" font-size="10">10&nbsp;h&nbsp;00 · ingénieurs</text>
+              <!-- orientation -->
+              <rect x="250" y="158" width="82" height="92" rx="10" fill="rgba(154,179,206,.14)" stroke="#7E9AB8" stroke-width="1.5"/>
+              <text x="258" y="180" fill="#C3D5E6" font-size="10.5" font-weight="700">10 · Orientation</text>
+              <text x="258" y="195" fill="#C3D5E6" font-size="10.5" font-weight="700">générale</text>
+              <text x="258" y="215" fill="#A6BCD2" font-size="10">Salles 101</text>
+              <text x="258" y="229" fill="#A6BCD2" font-size="10">à 103</text>
+              <!-- bas -->
+              <rect x="14" y="258" width="150" height="66" rx="10" fill="rgba(255,177,61,.16)" stroke="#FFB13D" stroke-width="1.5"/>
+              <text x="26" y="280" fill="#FFD199" font-size="11.5" font-weight="700">1 · Accueil</text>
+              <text x="26" y="298" fill="#E2BE8C" font-size="10.5">Sous le préau</text>
+              <circle cx="120" cy="300" r="9" fill="#FFB13D" opacity=".25"/>
+              <circle cx="120" cy="300" r="5" fill="#FFB13D"/>
+              <text x="72" y="318" fill="#FFE3BE" font-size="10" font-weight="700">vous êtes ici</text>
+              <rect x="172" y="258" width="76" height="66" rx="10" fill="#0E2942" stroke="#1E4468"/>
+              <text x="182" y="286" fill="#9FB6CC" font-size="10.5">Toilettes</text>
+              <rect x="256" y="258" width="76" height="66" rx="10" fill="#0E2942" stroke="#1E4468"/>
+              <text x="266" y="282" fill="#9FB6CC" font-size="10.5">Food-</text>
+              <text x="266" y="296" fill="#9FB6CC" font-size="10.5">trucks</text>
+              <text x="14" y="346" fill="#6E8CAC" font-size="10.5">Les villages où tu as des exposants sont allumés.</text>
+              <text x="14" y="364" fill="#6E8CAC" font-size="10.5">Les autres restent en veille.</text>
+            </svg>
+            <div class="n-leg">
+              <span><i style="background:#FF6B9D"></i>dans ma visite</span>
+              <span><i style="background:#3ED0D6"></i>événement bientôt</span>
+              <span><i style="background:#FFB13D"></i>services</span>
+            </div>
+            <div class="n-proche">
+              <div><b>Salle 21 · Santé &amp; Soin</b><span>DIPLOMA SANTE, en face de l'escalier — 30 secondes à pied</span></div>
+              <div><b>Auditorium · Conférences</b><span>Concours d'ingénieurs à 10&nbsp;h&nbsp;00 — entrée par le hall</span></div>
+            </div>
+          </div>
+          <nav class="n-nav">
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.6 2.6 0 1 1 3.4 2.5c-.6.2-.9.7-.9 1.3v.4"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></svg>Préparer</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Programme</a>
+            <a href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.2-4.2"/></svg>Exposants</a>
+            <a class="actif" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 6.5 9.5 4l5 2.5L21 4v13.5L14.5 20l-5-2.5L3 20z"/><path d="M9.5 4v13.5M14.5 6.5V20"/></svg>Plan</a>
+          </nav>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Plan</b><span>Un schéma, pas une photo de plan scanné : chaque village est un bloc à sa place
+        réelle, et seuls ceux qui concernent le visiteur sont allumés.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dix directions — appli du Festival de l'Orientation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@700&family=Baloo+2:wght@700&family=Barlow+Condensed:wght@700&family=Caveat:wght@700&family=Fredoka:wght@600&family=Instrument+Serif&family=Lora:wght@700&family=Newsreader:opsz,wght@6..72,600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#E9EBEF;--encre:#171F2B;--gris:#5D6878;--trait:#CFD5DE;--carte:#FFFFFF}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fond);color:var(--encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:56px 32px 90px;-webkit-font-smoothing:antialiased}
+.page{max-width:1000px;margin:0 auto}
+h1{font-size:42px;line-height:1.08;margin:0 0 16px;letter-spacing:-.025em}
+.intro{max-width:66ch;font-size:16.5px;line-height:1.65;color:#2B3444;margin:0 0 18px}
+.intro b{font-weight:600}
+.encadre{max-width:66ch;font-size:14.5px;line-height:1.6;color:#3A4658;margin:0 0 18px;
+  border-left:3px solid var(--trait);padding-left:16px}
+.encadre b{color:var(--encre)}
+.avant{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:30px 0 42px;padding-top:24px;border-top:1px solid var(--trait)}
+.avant div{border-left:2px solid #A9B4C4;padding-left:12px}
+.avant strong{display:block;font-size:13.5px;margin-bottom:3px}
+.avant span{font-size:12.5px;line-height:1.45;color:var(--gris)}
+.grille{display:grid;gap:16px}
+a.dir{display:grid;grid-template-columns:150px 1fr;gap:26px;background:var(--carte);border-radius:14px;padding:22px 26px;
+  text-decoration:none;color:inherit;border:1px solid var(--trait);transition:border-color .15s,transform .15s}
+a.dir:hover{border-color:#96A3B5;transform:translateY(-2px)}
+a.dir:focus-visible{outline:3px solid #003473;outline-offset:3px}
+.marque{display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.num{font-size:11.5px;color:var(--gris);margin-bottom:5px;letter-spacing:.04em}
+.nom{font-size:33px;line-height:.98;letter-spacing:-.01em}
+.pal{display:flex;gap:5px}
+.pal i{width:19px;height:19px;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.txt h2{margin:0 0 7px;font-size:16px;font-weight:600}
+.txt p{margin:0 0 12px;font-size:14.5px;line-height:1.6;color:#39445A;max-width:62ch}
+.ecrans{display:flex;gap:7px;flex-wrap:wrap}
+.ecrans span{font-size:12px;background:#F1F3F7;border:1px solid var(--trait);border-radius:20px;padding:5px 11px;color:#48546A}
+footer{margin-top:46px;padding-top:26px;border-top:1px solid var(--trait);font-size:14.5px;line-height:1.65;color:#42506A;max-width:66ch}
+footer b{color:var(--encre)}
+footer p{margin:0 0 16px}
+.d01 .nom{font-family:'Barlow Condensed',sans-serif;font-weight:700;color:#003473;font-size:39px}
+.d02 .nom{font-family:'Archivo Narrow',sans-serif;font-weight:700;color:#17222B;font-size:37px}
+.d03 .nom{font-family:'Anton',Impact,sans-serif;color:#C90151;text-transform:uppercase;font-size:32px}
+.d04 .nom{font-family:'Lora',Georgia,serif;font-weight:700;color:#BE3B26;font-size:35px}
+.d05 .nom{font-family:'Caveat',cursive;font-weight:700;color:#1E3A6E;font-size:44px}
+.d06 .nom{font-family:'Newsreader',Georgia,serif;font-weight:600;color:#3F6152;font-size:37px}
+.d07 .nom{font-family:'Instrument Serif',Georgia,serif;color:#0A6E74;font-size:38px}
+.d08 .nom{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#0B2E4C;font-size:31px}
+.d09 .nom{font-family:'Baloo 2',system-ui,sans-serif;font-weight:700;color:#5A2FD8;font-size:35px}
+.d10 .nom{font-family:'Fredoka',system-ui,sans-serif;font-weight:600;color:#173CBA;font-size:27px}
+@media (max-width:820px){body{padding:32px 18px 60px}h1{font-size:30px}a.dir{grid-template-columns:1fr;gap:14px}
+  .marque{flex-direction:row;align-items:center;justify-content:flex-start;gap:18px}
+  .avant{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Dix directions pour l'appli du Festival</h1>
+
+  <p class="intro">Dix propositions de <b>look and feel</b>, pas dix applications. Les fonctions sont les mêmes
+  partout — programme, exposants, plan, ma visite — et ce qui s'affiche à l'écran, ce sont les
+  <b>vraies données</b> du classeur du festival : les neuf villages, les salles, les deux étages, les sept
+  rendez-vous de la matinée, les écoles confirmées. Ce qui change d'une direction à l'autre, c'est la couleur,
+  la typographie, la façon de hiérarchiser, et le premier écran.</p>
+
+  <p class="encadre">Il est <b>9 h 48</b> sur les trente écrans : le festival vient d'ouvrir et la première
+  conférence commence dans douze minutes. C'est le même instant partout, pour que les directions se comparent
+  sur autre chose que leur contenu.</p>
+
+  <p class="encadre">Le <b>vocabulaire varie</b> volontairement : « Ma visite », « Mon carnet », « Ma route »,
+  « Sélection » désignent la même chose. Proposer un mot fait partie de la proposition. Le glossaire du projet,
+  lui, dit « Ma visite ».</p>
+
+  <div class="avant">
+    <div><strong>Maintenant, puis ensuite</strong><span>Pendant l'événement, l'heure prime sur le catalogue.</span></div>
+    <div><strong>Le lieu et la fiche</strong><span>Un exposant sans son numéro de salle ne sert à rien.</span></div>
+    <div><strong>Une visite, pas des favoris</strong><span>Découverte et sélection doivent converger vers un parcours.</span></div>
+    <div><strong>Filtrer sans étouffer</strong><span>Cent neuf exposants doivent se réduire en deux gestes.</span></div>
+  </div>
+
+  <div class="grille">
+
+    <a class="dir d01" href="01-reperes.html">
+      <div class="marque"><div><div class="num">Direction 01</div><div class="nom">Repères</div></div>
+        <div class="pal"><i style="background:#003473"></i><i style="background:#ED9800"></i><i style="background:#00767C"></i><i style="background:#C90151"></i><i style="background:#fff"></i></div></div>
+      <div class="txt"><h2>La signalétique du lycée, portée sur soi</h2>
+        <p>Bandeaux pleine largeur, numéros de village en pastille carrée, numéro de salle traité comme une
+        plaque de porte. Typographie étroite des panneaux de gare. Se lit à bout de bras dans un couloir.</p>
+        <div class="ecrans"><span>Accueil</span><span>Plan</span><span>Fiche exposant</span></div></div>
+    </a>
+
+    <a class="dir d02" href="02-signal.html">
+      <div class="marque"><div><div class="num">Direction 02</div><div class="nom">Signal</div></div>
+        <div class="pal"><i style="background:#0b1014"></i><i style="background:#ffd52f"></i><i style="background:#57d5d0"></i><i style="background:#f6f4e9"></i></div></div>
+      <div class="txt"><h2>Décider vite dans un lieu bruyant</h2>
+        <p>La variante sombre de la même intention : carrés nets, contraste maximal, et un jaune qui ne
+        décore jamais — il marque ce sur quoi il faut appuyer.</p>
+        <div class="ecrans"><span>Accueil</span><span>Programme</span><span>Ma visite</span></div></div>
+    </a>
+
+    <a class="dir d03" href="03-affiche.html">
+      <div class="marque"><div><div class="num">Direction 03</div><div class="nom">Affiche</div></div>
+        <div class="pal"><i style="background:#C90151"></i><i style="background:#01A1A7"></i><i style="background:#ED9800"></i><i style="background:#003473"></i><i style="background:#141414"></i></div></div>
+      <div class="txt"><h2>L'affiche officielle continue dans la poche</h2>
+        <p>Mêmes aplats, même grain d'impression, mêmes quatre verbes — s'informer, échanger, explorer,
+        construire — qui deviennent les quatre entrées de l'appli. Celle qui se reconnaît le mieux en photo.</p>
+        <div class="ecrans"><span>Accueil</span><span>Exposants</span><span>Fiche exposant</span></div></div>
+    </a>
+
+    <a class="dir d04" href="04-folio.html">
+      <div class="marque"><div><div class="num">Direction 04</div><div class="nom">Folio</div></div>
+        <div class="pal"><i style="background:#f4f0e7"></i><i style="background:#181b1c"></i><i style="background:#e74b36"></i><i style="background:#e7c64e"></i></div></div>
+      <div class="txt"><h2>Le programme imprimé d'un festival</h2>
+        <p>Une « une », des filets qui séparent au lieu de cadres qui enferment, le numéro de salle traité
+        comme un folio de page. La plus sobre des dix, et celle qui vieillira le mieux.</p>
+        <div class="ecrans"><span>La une</span><span>Programme</span><span>Fiche exposant</span></div></div>
+    </a>
+
+    <a class="dir d05" href="05-cahier.html">
+      <div class="marque"><div><div class="num">Direction 05</div><div class="nom">Cahier</div></div>
+        <div class="pal"><i style="background:#FCFBF5"></i><i style="background:#1E3A6E"></i><i style="background:#DC5A4B"></i><i style="background:#C9A227"></i><i style="background:#FFF3B0"></i></div></div>
+      <div class="txt"><h2>Le carnet de visite du visiteur</h2>
+        <p>Réglure Seyès pâle, filet de marge rouge, intercalaires de classeur, cases à cocher et annotations
+        manuscrites. Ce que le visiteur coche lui appartient — et repart avec lui.</p>
+        <div class="ecrans"><span>Mon cahier</span><span>Programme</span><span>Ma visite</span></div></div>
+    </a>
+
+    <a class="dir d06" href="06-atlas.html">
+      <div class="marque"><div><div class="num">Direction 06</div><div class="nom">Atlas</div></div>
+        <div class="pal"><i style="background:#f3efdf"></i><i style="background:#486b5d"></i><i style="background:#d56943"></i><i style="background:#d4c18f"></i></div></div>
+      <div class="txt"><h2>Un carnet de terrain, pas un plan technique</h2>
+        <p>Papier ivoire, formes souples, chemin en pointillés : le lycée devient un petit territoire.
+        La plus calme des dix, et la seule qui dessine le plan en zones plutôt qu'en liste de salles.</p>
+        <div class="ecrans"><span>Accueil</span><span>Plan</span><span>Fiche exposant</span></div></div>
+    </a>
+
+    <a class="dir d07" href="07-matinee.html">
+      <div class="marque"><div><div class="num">Direction 07</div><div class="nom">Matinée</div></div>
+        <div class="pal"><i style="background:#F2F7F7"></i><i style="background:#0A6E74"></i><i style="background:#ED9800"></i><i style="background:#C90151"></i><i style="background:#08283F"></i></div></div>
+      <div class="txt"><h2>Quatre heures, et l'heure qu'il est</h2>
+        <p>L'écran d'ouverture est un cadran : la matinée entière tient dans un demi-cercle qui se remplit.
+        L'appli répond d'abord à « qu'est-ce que je fais maintenant », et prévient quand un exposant s'en va.</p>
+        <div class="ecrans"><span>Maintenant</span><span>Programme</span><span>Ma matinée</span></div></div>
+    </a>
+
+    <a class="dir d08" href="08-nocturne.html">
+      <div class="marque"><div><div class="num">Direction 08</div><div class="nom">Nocturne</div></div>
+        <div class="pal"><i style="background:#071A2E"></i><i style="background:#0E2942"></i><i style="background:#3ED0D6"></i><i style="background:#FF6B9D"></i><i style="background:#FFB13D"></i></div></div>
+      <div class="txt"><h2>Sombre, et filtré dès la première question</h2>
+        <p>Commence par « qu'est-ce qui t'intéresse ? ». Deux domaines cochés ramènent 109 exposants à une
+        vingtaine, et le plan n'allume que les villages concernés.</p>
+        <div class="ecrans"><span>Préparer ma visite</span><span>Exposants</span><span>Plan</span></div></div>
+    </a>
+
+    <a class="dir d09" href="09-pulse.html">
+      <div class="marque"><div><div class="num">Direction 09</div><div class="nom">Pulse</div></div>
+        <div class="pal"><i style="background:#241153"></i><i style="background:#f33b9d"></i><i style="background:#7a49ff"></i><i style="background:#ffcc47"></i></div></div>
+      <div class="txt"><h2>Le registre d'un festival, pas d'un salon</h2>
+        <p>Violet profond, halos, verre dépoli, et un accueil qui change selon les centres d'intérêt cochés —
+        sans compte ni prénom, tout reste sur le téléphone.</p>
+        <div class="ecrans"><span>Pour toi</span><span>Programme</span><span>Ma visite</span></div></div>
+    </a>
+
+    <a class="dir d10" href="10-campus-quest.html">
+      <div class="marque"><div><div class="num">Direction 10</div><div class="nom">Campus Quest</div></div>
+        <div class="pal"><i style="background:#f6f4ea"></i><i style="background:#173cba"></i><i style="background:#c9ff3e"></i><i style="background:#ff806f"></i></div></div>
+      <div class="txt"><h2>Donner envie d'avancer</h2>
+        <p>Contours épais, ombres portées franches, autocollants. On n'entre pas par un menu mais par une
+        mission, et le plan se lit comme une carte de jeu. Le pari le plus risqué des dix.</p>
+        <div class="ecrans"><span>Départ</span><span>Villages</span><span>Ma route</span></div></div>
+    </a>
+
+  </div>
+
+  <footer>
+    <p><b>Ce que ces maquettes ne sont pas.</b> Aucune n'est le code de l'appli : ce sont des images fabriquées
+    en HTML pour être regardées, pas des pages qui fonctionnent. Les boutons ne cliquent pas, les listes sont
+    figées. La direction retenue sera ensuite appliquée à l'application réelle, qui a déjà toutes ses fonctions.</p>
+    <p><b>Rien n'oblige à choisir en bloc.</b> Le cadran de « Matinée », les intercalaires de « Cahier », les
+    plaques de porte de « Repères » et les missions de « Campus Quest » peuvent se combiner. Dites-nous laquelle
+    vous parle — et ce que vous garderiez des autres.</p>
+    <p><b>Comment regarder.</b> Trois questions utiles, dont les réponses ne désignent pas forcément la même
+    direction : laquelle a l'air de venir du même endroit que l'affiche ? laquelle se lit sans lunettes ?
+    laquelle un élève de seconde installerait ?</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--vitrine-fond:#E9EBEF;--vitrine-encre:#171F2B;--vitrine-gris:#5D6878;--vitrine-trait:#CFD5DE;--accent:#3F6152}
+*{box-sizing:border-box}
+body{margin:0;background:var(--vitrine-fond);color:var(--vitrine-encre);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  padding:48px 32px 80px;-webkit-font-smoothing:antialiased}
+.vitrine{max-width:1360px;margin:0 auto}
+.retour{display:inline-block;font-size:13px;color:var(--vitrine-gris);text-decoration:none;border-bottom:1px solid var(--vitrine-trait);padding-bottom:2px;margin-bottom:28px}
+.retour:hover{color:var(--accent);border-color:var(--accent)}
+.titre{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 6px}
+.titre b{font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:56px;line-height:1;color:var(--accent);letter-spacing:-.015em}
+.titre span{font-size:14px;color:var(--vitrine-gris)}
+.chapo{max-width:62ch;font-size:16.5px;line-height:1.6;color:#2B3444;margin:0 0 26px}
+.fiches{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:26px;border-bottom:1px solid var(--vitrine-trait)}
+.fiche{max-width:30ch}
+.fiche dt{font-size:12px;color:var(--vitrine-gris);margin-bottom:5px}
+.fiche dd{margin:0;font-size:14.5px;line-height:1.5}
+.nuancier{display:flex;gap:8px;margin-top:8px}
+.nuancier i{width:26px;height:26px;border-radius:5px;display:block;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.scene{display:flex;gap:40px;flex-wrap:wrap;margin-top:40px}
+figure.tel{margin:0;width:414px}
+figcaption{margin-top:16px}
+figcaption b{display:block;font-family:'Newsreader',Georgia,serif;font-weight:600;font-size:25px;line-height:1.12}
+figcaption span{display:block;font-size:13.5px;line-height:1.5;color:var(--vitrine-gris);margin-top:5px}
+.ile{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:112px;height:31px;border-radius:16px;background:#10141B;z-index:9}
+.barredom{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:3px;z-index:8;background:#243429;opacity:.4}
+@media (max-width:900px){body{padding:28px 18px 60px}.titre b{font-size:44px}}
+
+/* Cadre de téléphone commun aux dix directions : 390 x 844 dans une coque sombre. */
+.phone-shell{width:414px;height:868px;max-width:none;margin:0;padding:12px;border-radius:52px;background:#10141B;
+  box-shadow:0 30px 70px rgba(12,22,40,.30), inset 0 0 0 2px #2A313C}
+.phone-screen{position:relative;width:390px;height:844px;overflow:hidden;border-radius:41px;
+  background:var(--app-bg);color:var(--app-text);font-family:var(--app-font)}
+.phone-status{flex:none;height:52px;padding:0 26px 6px;display:flex;justify-content:space-between;align-items:flex-end;
+  font-size:13px;font-weight:600;position:relative;z-index:5}
+.phone-content{height:calc(100% - 52px);display:flex;flex-direction:column;position:relative;z-index:2}
+.screen-main{flex:1;min-height:0;overflow:hidden;padding:var(--screen-pad,18px)}
+.bottom-nav{height:84px;flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px;
+  border-top:1px solid var(--app-line);background:var(--nav-bg)}
+.bottom-nav div{text-align:center;font-size:9px;color:var(--app-muted)}
+.bottom-nav b{display:block;font-size:19px;line-height:1.1;font-weight:500;margin-bottom:3px}
+.bottom-nav .active{color:var(--concept-accent)}
+.mini-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:16px}
+.mini-top strong{font-family:var(--concept-display);font-size:17px}
+.avatar,.round-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--app-surface);border:1px solid var(--app-line);flex:none}
+.app-eyebrow{margin:0 0 7px;text-transform:uppercase;letter-spacing:.13em;font-size:9px;font-weight:800;color:var(--concept-accent)}
+.app-title{font-family:var(--concept-display);font-size:var(--app-title,31px);line-height:1.02;letter-spacing:var(--app-title-track,-.02em);margin:0}
+.app-subtitle{margin:8px 0 0;color:var(--app-muted);font-size:11px}
+.pill-row{display:flex;flex-wrap:wrap;gap:6px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:6px 9px;border-radius:999px;background:var(--app-surface);border:1px solid var(--app-line);color:var(--app-muted);font-size:9px}
+.pill.on{background:var(--concept-accent);border-color:var(--concept-accent);color:var(--accent-text);font-weight:700}
+.section-label{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:18px 0 9px}
+.section-label strong{font-family:var(--concept-display);font-size:14px}
+.section-label span{color:var(--concept-accent);font-size:9px;font-weight:800}
+.action-button{display:flex;justify-content:center;align-items:center;gap:7px;width:100%;border:0;border-radius:var(--button-radius,12px);
+  padding:12px;background:var(--concept-accent);color:var(--accent-text);font-weight:800;font-size:10.5px;font-family:inherit}
+
+/* --- Atlas --- */
+
+.atlas{
+  --concept-accent:#d56943;
+  --concept-display:'Newsreader',Georgia,'Times New Roman',serif;
+  --app-bg:#f3efdf; --app-text:#243429; --app-muted:#687268; --app-surface:#ebe4d1; --app-line:#cfc6ae;
+  --app-font:'Nunito Sans',system-ui,sans-serif; --nav-bg:#f7f3e6; --accent-text:#fff9ef;
+  --control-radius:18px; --button-radius:999px; --screen-pad:17px; --app-title:29px; --app-title-track:-.015em;
+}
+.atlas .phone-screen{color-scheme:light}
+.atlas .phone-status{color:#243429}
+.atlas .app-title{font-weight:600}
+.atlas .atlas-hero{position:relative;min-height:238px;margin:-17px -17px 0;padding:20px 17px;background:#d9e2cc;overflow:hidden}
+.atlas .atlas-hero::before,.atlas .atlas-hero::after{content:"";position:absolute;border-radius:48% 52% 58% 42%;opacity:.9}
+.atlas .atlas-hero::before{width:190px;height:130px;background:#b8c9aa;right:-40px;top:32px;transform:rotate(-15deg)}
+.atlas .atlas-hero::after{width:155px;height:120px;background:#efd4b7;left:-50px;bottom:-30px;transform:rotate(12deg)}
+.atlas .atlas-hero > *{position:relative;z-index:2}
+.atlas .atlas-hero .app-title{max-width:12ch;font-size:29px;line-height:1.08}
+.atlas .trail{position:absolute;left:48px;right:40px;bottom:20px;height:52px;border-bottom:3px dashed #6c826b;border-radius:50%;transform:rotate(-7deg);z-index:1}
+.atlas .trail::before,.atlas .trail::after{content:"";position:absolute;width:12px;height:12px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--concept-accent)}
+.atlas .trail::before{left:20%;bottom:-7px}
+.atlas .trail::after{right:5%;bottom:2px;background:#486b5d}
+.atlas .atlas-card{border-radius:18px;padding:12px 14px;background:var(--app-surface);border:1px solid var(--app-line)}
+.atlas .atlas-card + .atlas-card{margin-top:8px}
+.atlas .atlas-card strong{font-family:var(--concept-display);font-size:14px}
+.atlas .atlas-card small{display:block;color:var(--app-muted);margin-top:3px;font-size:9.5px}
+.atlas .map-page{padding:0}
+.atlas .map-head{padding:15px 17px 11px}
+.atlas .organic-map{position:relative;height:592px;background:#d8e2ce;overflow:hidden}
+.atlas .organic-map::before{content:"";position:absolute;inset:30px 24px 42px;border:2px solid #80927d;border-radius:39% 61% 45% 55%;background:rgba(255,255,255,.22);transform:rotate(-3deg)}
+.atlas .zone{position:absolute;border-radius:45% 55% 48% 52%;display:grid;place-items:center;text-align:center;font:600 10.5px/1.2 var(--concept-display);padding:8px}
+.atlas .z1{width:116px;height:86px;background:#e7b491;left:40px;top:128px}
+.atlas .z2{width:128px;height:98px;background:#b8c9aa;right:34px;top:100px}
+.atlas .z3{width:150px;height:88px;background:#d4c18f;left:76px;top:296px}
+.atlas .pin{width:18px;height:18px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--concept-accent);position:absolute;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+.atlas .pin.one{left:95px;top:182px}
+.atlas .pin.two{right:82px;top:156px;background:#486b5d}
+.atlas .map-sheet{position:absolute;left:12px;right:12px;bottom:12px;border-radius:20px;background:#fffaf0;padding:13px;box-shadow:0 10px 24px rgba(36,52,41,.18)}
+.atlas .map-sheet strong{font-family:var(--concept-display);font-size:13.5px}
+.atlas .map-sheet small{color:var(--app-muted);display:block;margin-top:2px;font-size:9.5px}
+.atlas .profile-mark{height:86px;border-radius:22px;background:linear-gradient(135deg,#b9cbaa,#e8d3b7);display:grid;place-items:center;margin:4px 0 14px;font:600 31px/1 var(--concept-display)}
+.atlas .fact-list{border-top:1px solid var(--app-line)}
+.atlas .fact{display:grid;grid-template-columns:80px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid var(--app-line);font-size:10.5px}
+.atlas .fact span{color:var(--app-muted)}
+
+</style>
+</head>
+<body>
+<div class="vitrine">
+  <a class="retour" href="index.html">Les dix directions</a>
+
+  <div class="titre"><b>Atlas</b><span>direction 06 sur 10</span></div>
+  <p class="chapo">Un carnet de terrain plutôt qu'un plan technique. Papier ivoire, formes souples, chemin en pointillés : le lycée devient un petit territoire qu'on parcourt. C'est la direction la plus calme des dix, et la seule qui dessine le plan en zones organiques au lieu d'une grille de salles.</p>
+
+  <div class="fiches">
+    <dl class="fiche"><dt>Palette</dt><dd>Papier ivoire, vert de sous-bois, terre cuite, sable. Aucune couleur vive : les repères ressortent par la forme, pas par la saturation.<div class="nuancier"><i style="background:#f3efdf"></i><i style="background:#486b5d"></i><i style="background:#d56943"></i><i style="background:#d4c18f"></i></div></dd></dl>
+    <dl class="fiche"><dt>Typographie</dt><dd>Newsreader, une serif chaleureuse, pour les titres ; Nunito Sans pour le texte. Beaucoup d'interlignage.</dd></dl>
+    <dl class="fiche"><dt>Navigation</dt><dd>Quatre onglets, dont « Carte » en deuxième position — c'est l'écran qu'on rouvrira le plus souvent.</dd></dl>
+    <dl class="fiche"><dt>Pour qui</dt><dd>Les familles qui viennent flâner plutôt que cocher. Réserve : un plan en formes souples est agréable mais moins précis qu'une liste de salles numérotées.</dd></dl>
+  </div>
+
+  <div class="scene atlas">
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:48</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="atlas-hero">
+              <p class="app-eyebrow">Festival de l'Orientation</p>
+              <h3 class="app-title">Votre matinée commence ici</h3>
+              <p class="app-subtitle">Samedi 14 novembre · Maurice Rondeau</p>
+              <div class="trail"></div>
+            </div>
+            <div class="section-label"><strong>Pour commencer</strong><span>TOUT VOIR</span></div>
+            <div class="atlas-card"><strong>Le village Santé &amp; Soin</strong><small>18 exposants · rez-de-chaussée, salles 21 à 24</small></div>
+            <div class="atlas-card"><strong>Prochain rendez-vous · 10&nbsp;h</strong><small>Concours d'ingénieurs post-bac · Auditorium</small></div>
+            <div class="atlas-card"><strong>Se repérer</strong><small>Deux étages, neuf villages, un escalier au bout du couloir des salles 30</small></div>
+            <div class="atlas-card"><strong>Toute la matinée</strong><small>7 rendez-vous, de 10&nbsp;h à 13&nbsp;h · auditorium et petite salle</small></div>
+          </div>
+          <div class="bottom-nav"><div class="active"><b>⌂</b>Accueil</div><div><b>⌖</b>Carte</div><div><b>☷</b>Découvrir</div><div><b>♡</b>Carnet</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Accueil</b><span>Une couverture en formes douces et un chemin en pointillés, puis deux cartes seulement : un village où commencer, et le prochain rendez-vous. Rien d'autre à décider.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:53</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main map-page">
+            <div class="map-head">
+              <div class="mini-top"><strong>Les villages</strong><div class="round-icon">⌕</div></div>
+              <div class="pill-row"><span class="pill on">Rez-de-chaussée</span><span class="pill">1<sup>er</sup> étage</span></div>
+            </div>
+            <div class="organic-map">
+              <div class="zone z1">2<br>Santé &amp; Soin</div>
+              <div class="zone z2">3<br>Commerce</div>
+              <div class="zone z3">10<br>Orientation générale</div>
+              <span class="pin one"></span><span class="pin two"></span>
+              <div class="map-sheet">
+                <strong>Salle 21 · Santé &amp; Soin</strong>
+                <small>DIPLOMA SANTE et deux professionnels · face à l'escalier</small>
+                <div class="pill-row" style="margin-top:9px"><span class="pill on">Voir les exposants</span><span class="pill">Y aller</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Accueil</div><div class="active"><b>⌖</b>Carte</div><div><b>☷</b>Découvrir</div><div><b>♡</b>Carnet</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Plan</b><span>Le plan n'imite pas l'architecture : il donne les villages comme des clairières, avec deux épingles et une fiche qui remonte du bas dès qu'on en touche une.</span></figcaption>
+    </figure>
+
+    <figure class="tel">
+      <div class="phone-shell"><div class="phone-screen"><div class="ile"></div>
+        <div class="phone-status"><span>9:59</span><span>Wi-Fi&nbsp;&nbsp;100&nbsp;%</span></div>
+        <div class="phone-content">
+          <div class="screen-main">
+            <div class="mini-top"><strong>← Santé &amp; Soin</strong><div class="round-icon">♡</div></div>
+            <div class="profile-mark">D</div>
+            <p class="app-eyebrow">Prépa · village 2</p>
+            <h3 class="app-title">DIPLOMA SANTE</h3>
+            <p class="app-subtitle">Préparer les études de santé et les concours paramédicaux, du lycée au post-bac.</p>
+            <div class="fact-list" style="margin-top:14px">
+              <div class="fact"><span>Village</span><strong>Santé &amp; Soin · 2</strong></div>
+              <div class="fact"><span>Emplacement</span><strong>Salle 21 · stand 1</strong></div>
+              <div class="fact"><span>Étage</span><strong>Rez-de-chaussée, face à l'escalier</strong></div>
+              <div class="fact"><span>Présence</span><strong>9&nbsp;h&nbsp;30 — 13&nbsp;h&nbsp;30</strong></div>
+            </div>
+            <button class="action-button" style="margin-top:16px" type="button">Ajouter à mon carnet</button>
+            <div class="section-label" style="margin:20px 0 9px"><strong>À demander sur le stand</strong><span></span></div>
+            <div class="atlas-card"><strong>Quels sont les critères d'admission ?</strong><small>Via Parcoursup ou hors Parcoursup</small></div>
+            <div class="atlas-card"><strong>Combien coûtent les études ?</strong><small>Et quelles aides ou bourses existent</small></div>
+          </div>
+          <div class="bottom-nav"><div><b>⌂</b>Accueil</div><div><b>⌖</b>Carte</div><div class="active"><b>☷</b>Découvrir</div><div><b>♡</b>Carnet</div></div>
+        </div>
+        <div class="barredom"></div>
+      </div></div>
+      <figcaption><b>Fiche exposant</b><span>Pas de logo à aller chercher : une plaque de couleur suffit à identifier le stand. Les faits sont rangés en tableau, le bouton parle de carnet plutôt que de favoris.</span></figcaption>
+    </figure>
+
+  </div>
+</div>
+</body>
+</html>
