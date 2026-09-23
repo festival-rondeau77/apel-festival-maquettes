@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Essai scan">
+<title>Essai scanner</title>
+<!--
+  Essai jetable (Grand Défi, ticket 10) : un bouton « Scanner » dans une page web
+  lit-il les QR sur iPhone et Android, en gardant la MÊME mémoire (passeport),
+  y compris installée sur l'écran d'accueil ? Aucun lien avec l'appli : rien
+  n'est envoyé nulle part, tout reste dans ce téléphone.
+-->
+<style>
+  :root { --fond: #F3F5F8; --carte: #fff; --encre: #0A2647; --encre-2: #55627A; --trait: #DCE2EA; --turquoise: #007A80; --ambre: #9A5A00; --ok: #1B7F3B; --ko: #C90151; color-scheme: light; }
+  @media (prefers-color-scheme: dark) { :root { --fond: #0B1524; --carte: #13213A; --encre: #E8EDF5; --encre-2: #9AA8BF; --trait: #25375A; --turquoise: #35C6CC; --ambre: #FFB13D; --ok: #5FD38A; --ko: #FF6E9F; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fond); color: var(--encre); font: 16px/1.45 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 16px 16px calc(24px + env(safe-area-inset-bottom)); }
+  main { max-width: 520px; margin: 0 auto; display: grid; gap: 14px; }
+  h1 { font-size: 1.5rem; margin: 4px 0 0; }
+  .carte { background: var(--carte); border: 1px solid var(--trait); border-radius: 6px 6px 16px 6px; padding: 14px 16px; display: grid; gap: 6px; }
+  .etiquette { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--encre-2); }
+  .passeport { font: 700 1.6rem ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--turquoise); }
+  .petit { font-size: 0.85rem; color: var(--encre-2); margin: 0; }
+  button { font: 700 1.05rem inherit; border: 0; border-radius: 4px 4px 14px 4px; padding: 14px 18px; background: var(--turquoise); color: var(--fond); cursor: pointer; }
+  button.secondaire { background: transparent; color: var(--turquoise); border: 1.5px solid var(--turquoise); padding: 10px 14px; font-size: 0.95rem; }
+  .video { position: relative; border-radius: 12px; overflow: hidden; background: #000; aspect-ratio: 3 / 4; }
+  .video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video .viseur { position: absolute; inset: 18%; border: 3px solid #fff; border-radius: 14px; box-shadow: 0 0 0 999px rgba(0,0,0,.35); }
+  ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  li { font-size: 0.9rem; word-break: break-all; border-left: 3px solid var(--ambre); padding-left: 8px; }
+  li b { color: var(--encre); }
+  .ok { color: var(--ok); font-weight: 700; } .ko { color: var(--ko); font-weight: 700; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 0.9rem; }
+  dt { color: var(--encre-2); } dd { margin: 0; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Essai : scanner depuis la page</h1>
+  <p class="petit">On vérifie qu’un scan fait <strong>dans</strong> la page garde le même passeport. Rien n’est envoyé : tout reste sur ce téléphone.</p>
+
+  <section class="carte">
+    <span class="etiquette">Passeport de ce navigateur</span>
+    <span class="passeport" id="passeport">…</span>
+    <p class="petit" id="origine-passeport"></p>
+  </section>
+
+  <button type="button" id="scanner">📷 Scanner un QR</button>
+  <div class="video" id="cadre" hidden><video id="video" playsinline muted></video><div class="viseur"></div></div>
+  <button type="button" class="secondaire" id="arreter" hidden>Arrêter la caméra</button>
+  <p class="petit" id="etat" role="status"></p>
+
+  <section class="carte">
+    <span class="etiquette">Scans gardés dans ce passeport</span>
+    <ul id="scans"></ul>
+    <button type="button" class="secondaire" id="effacer">Effacer les scans (garder le passeport)</button>
+  </section>
+
+  <section class="carte">
+    <span class="etiquette">Ce que ce téléphone permet</span>
+    <dl id="diag"></dl>
+  </section>
+
+  <p class="petit"><strong>À essayer :</strong> 1. scanner deux QR ici, recharger la page : le passeport et les scans restent. 2. Scanner un QR avec l’appareil photo (hors de cette page) : le lien s’ouvre ailleurs, le passeport ici ne bouge pas. 3. iPhone : Partager → « Sur l’écran d’accueil », ouvrir l’icône, scanner : noter le passeport affiché.</p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const CLE_P = 'essai-scanner.passeport', CLE_S = 'essai-scanner.scans';
+  let memoire = true;
+  const lire = (k) => { try { return localStorage.getItem(k); } catch { memoire = false; return null; } };
+  const ecrire = (k, v) => { try { localStorage.setItem(k, v); } catch { memoire = false; } };
+
+  // Le passeport : créé une fois, gardé dans la mémoire du navigateur.
+  let passeport = lire(CLE_P), neuf = false;
+  if (!passeport) { passeport = Math.random().toString(36).slice(2, 8).toUpperCase(); ecrire(CLE_P, passeport); neuf = true; }
+  $('passeport').textContent = passeport;
+  $('origine-passeport').textContent = !memoire ? '⚠ Mémoire indisponible (navigation privée stricte ou cookies bloqués) : perdu au rechargement.'
+    : neuf ? 'Créé à l’instant : première visite dans ce navigateur (ou mémoire neuve).' : 'Retrouvé dans la mémoire : même navigateur qu’avant.';
+
+  let scans = [];
+  try { scans = JSON.parse(lire(CLE_S) || '[]'); } catch { scans = []; }
+  const heure = (t) => new Date(t).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  function peindre() {
+    $('scans').innerHTML = scans.length ? scans.map((s) => `<li><b>${heure(s.t)}</b> · ${s.mode} · ${s.texte.replace(/[<&]/g, (c) => ({ '<': '&lt;', '&': '&amp;' }[c]))}</li>`).join('') : '<li>Aucun scan pour l’instant.</li>';
+  }
+  peindre();
+  $('effacer').onclick = () => { scans = []; ecrire(CLE_S, '[]'); peindre(); };
+
+  // Diagnostic : ce qui décidera de la solution dans l'appli.
+  const installee = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const natif = 'BarcodeDetector' in window;
+  const ua = navigator.userAgent;
+  const diag = {
+    'Appareil': /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? 'iPhone / iPad' : /Android/.test(ua) ? 'Android' : 'autre',
+    'Ouverte': installee ? 'installée (écran d’accueil)' : 'dans le navigateur',
+    'Caméra': navigator.mediaDevices && navigator.mediaDevices.getUserMedia ? 'disponible' : 'indisponible',
+    'Lecture QR native': natif ? 'oui (BarcodeDetector)' : 'non → lecteur JavaScript (jsQR)',
+    'Mémoire': memoire ? 'oui' : 'non',
+  };
+  $('diag').innerHTML = Object.entries(diag).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+
+  // Le scanner : caméra arrière, une image toutes les ~150 ms, décodée par le
+  // navigateur s'il sait, sinon par jsQR.
+  let flux = null, boucle = null, detecteur = null;
+  if (natif) { try { detecteur = new BarcodeDetector({ formats: ['qr_code'] }); } catch { detecteur = null; } }
+  const toile = document.createElement('canvas');
+  const ctx = toile.getContext('2d', { willReadFrequently: true });
+
+  async function lireImage(video) {
+    if (detecteur) {
+      try { const r = await detecteur.detect(video); if (r[0]) return { texte: r[0].rawValue, mode: 'natif' }; } catch { detecteur = null; }
+      return null;
+    }
+    if (!window.jsQR || !video.videoWidth) return null;
+    const l = 480, h = Math.round(video.videoHeight * l / video.videoWidth);
+    toile.width = l; toile.height = h;
+    ctx.drawImage(video, 0, 0, l, h);
+    const code = jsQR(ctx.getImageData(0, 0, l, h).data, l, h, { inversionAttempts: 'dontInvert' });
+    return code ? { texte: code.data, mode: 'jsQR' } : null;
+  }
+
+  function arreter() {
+    clearTimeout(boucle); boucle = null;
+    if (flux) flux.getTracks().forEach((t) => t.stop());
+    flux = null; $('cadre').hidden = true; $('arreter').hidden = true; $('scanner').hidden = false;
+  }
+
+  $('scanner').onclick = async () => {
+    $('etat').textContent = 'Ouverture de la caméra…';
+    try {
+      flux = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+    } catch (e) { $('etat').innerHTML = `<span class="ko">Caméra refusée ou absente :</span> ${e.name}`; return; }
+    const video = $('video');
+    video.srcObject = flux; await video.play();
+    $('cadre').hidden = false; $('arreter').hidden = false; $('scanner').hidden = true;
+    $('etat').textContent = `Visez un QR (${detecteur ? 'lecture native' : 'lecteur JavaScript'}).`;
+    const t0 = performance.now();
+    const tour = async () => {
+      if (!flux) return;
+      const r = await lireImage(video);
+      if (r) {
+        scans.unshift({ t: Date.now(), texte: r.texte, mode: r.mode });
+        ecrire(CLE_S, JSON.stringify(scans.slice(0, 20)));
+        peindre(); arreter();
+        if (navigator.vibrate) navigator.vibrate(80);
+        $('etat').innerHTML = `<span class="ok">Lu en ${Math.round(performance.now() - t0)} ms</span> — passeport ${passeport} inchangé.`;
+        return;
+      }
+      boucle = setTimeout(tour, 150);
+    };
+    tour();
+  };
+  $('arreter').onclick = () => { arreter(); $('etat').textContent = ''; };
+})();
+</script>
+</body>
+</html>
