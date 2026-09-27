@@ -20,8 +20,9 @@
              ---------- Compte à rebours           bloc « L'appli ouvre dans »
              ---------- Indice son                 pastille « Touche l'écran pour le son »
              ---------- Crédit musique             « Music by … » + égaliseur, dans la bande noire du bas
+             ---------- Bouton son                 haut-parleur stylisé à droite de la bande du bas (coupe / remet)
     <body>   <audio>                               LE FICHIER MUSIQUE (attribut src, à côté de la page)
-             #hint / #credit                       indice son et crédit (texte et lien de l'artiste ici)
+             #hint / #credit / #mute               indice son, crédit (texte et lien de l'artiste ici), bouton son (icône SVG)
              #countdown                            libellés du compte à rebours
              #overlays                             textes du badge et du public visé
     <script> ================= RÉGLAGES            OPEN_AT (date d'ouverture) et SCENES (le texte de chaque scène, sa durée, ses couleurs)
@@ -29,6 +30,7 @@
              ================= Compte à rebours    calcul et affichage
              ================= Confettis           particules
              ================= Musique             démarrage au premier geste, pause quand l'onglet est caché, crédit
+             ================= Bouton son          coupe / remet (music.muted, la lecture continue)
              ================= Aucune interaction  blocage du scroll, zoom, clic droit
 
   MODIFICATIONS COURANTES
@@ -38,6 +40,8 @@
     • Crédit musique       → body, #credit (nom et lien de l'artiste) ; style dans « Crédit musique »
     • Égaliseur du crédit  → style « Crédit musique » : nombre de barres = nombre de <i> dans #credit .eq,
                              couleurs et rythmes dans les règles :nth-child
+    • Bouton son           → body, #mute (icône SVG : .body haut-parleur, .w1/.w2 ondes, .x barre « coupé ») ;
+                             style dans « Bouton son » ; libellés aria dans le script « Bouton son »
     • Public visé / badge  → body, #overlays (.badge, .who)
 
   LICENCE MUSIQUE
@@ -329,6 +333,34 @@
   .credit.paused .eq i { animation-play-state: paused; }
   @keyframes eq { from { transform: scaleY(1); } to { transform: scaleY(3.6); } }
 
+  /* ---------- Bouton son : haut-parleur stylisé à droite de la bande noire du bas, en miroir du crédit ----------
+     Même discrétion que le crédit : invisible tant que la musique n'a pas démarré (classe .on posée
+     par le script), opacité faible au repos, pleine au survol. Coupe le son sans arrêter la lecture
+     (music.muted), donc les scènes restent calées sur le morceau. Classe .muted : ondes effacées,
+     barre rose en travers, égaliseur du crédit figé.
+     Réglages rapides :
+       - taille de l'icône      → .mute svg { width }
+       - discrétion             → .mute.on { opacity: … }
+       - zone tactile           → .mute { width } (la bande fait 7vh de haut)
+       - couleur des ondes      → .mute .w1 / .w2 ; de la barre « coupé » → .mute .x */
+  .mute {
+    position: fixed; right: 12px; bottom: 0; height: 7vh; width: 44px; z-index: 9;
+    display: grid; place-items: center; padding: 0 0 env(safe-area-inset-bottom, 0px); margin: 0;
+    background: none; border: 0; color: var(--cream); cursor: pointer; -webkit-tap-highlight-color: transparent;
+    opacity: 0; pointer-events: none; transition: opacity 1.6s ease .6s;
+  }
+  .mute.on { opacity: .32; pointer-events: auto; }
+  .mute.on:hover, .mute.on:focus-visible { opacity: .9; transition-delay: 0s; transition-duration: .3s; outline: none; }
+  .mute svg { width: 20px; height: 20px; display: block; overflow: visible; }
+  .mute .body { fill: currentColor; }
+  .mute .w1, .mute .w2, .mute .x { fill: none; stroke-width: 1.8; stroke-linecap: round; }
+  .mute .w1 { stroke: var(--sky); }
+  .mute .w2 { stroke: var(--sky); animation: wave 1.8s ease-in-out infinite; }   /* la grande onde respire quand ça joue */
+  .mute .x  { stroke: var(--pink); stroke-width: 2.2; opacity: 0; transition: opacity .25s ease; }
+  .mute.muted .w1, .mute.muted .w2 { opacity: 0; animation: none; }
+  .mute.muted .x { opacity: 1; }
+  @keyframes wave { 50% { opacity: .25; } }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: 0s !important; }
     #bg .ring, .grain { display: none; }
@@ -352,6 +384,16 @@
   <span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
   <span><span class="by">Music by</span> <a href="https://pixabay.com/users/nastelbom-48128234/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=463071" target="_blank" rel="noopener">Dmitrii Spis</a></span>
 </div>
+<!-- Bouton son (coupe / remet la musique) : haut-parleur stylisé, visible seulement une fois la musique
+     partie. Le script pose .on, bascule .muted et l'attribut aria-label. -->
+<button class="mute" id="mute" type="button" aria-label="Couper le son" aria-pressed="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path class="body" d="M4 9v6h3.5l5 4V5l-5 4z"/>
+    <path class="w1" d="M15.5 9.5a3.6 3.6 0 0 1 0 5"/>
+    <path class="w2" d="M18.3 7a7.2 7.2 0 0 1 0 10"/>
+    <path class="x" d="M4.5 4.5l15 15"/>
+  </svg>
+</button>
 <div id="bg"><div class="ring"></div><canvas id="confetti"></canvas></div>
 
 <!-- La scène : vidée et remplie par le script à chaque changement (tableau SCENES) -->
@@ -571,14 +613,31 @@
       playing = true;
       document.getElementById('hint').classList.add('gone');
       document.getElementById('credit').classList.add('on');   // le crédit prend la place de l'indice
+      document.getElementById('mute').classList.add('on');     // et le bouton son apparaît avec lui
       if (fromGesture) { idx = 0; elapsedBefore = 0; music.currentTime = 0; play(0); }   // repart sur la scène 1, calé sur la musique
     }).catch(() => {});   // pas encore autorisé : on réessaiera au prochain geste
   }
   startMusic(false);   // essai discret au chargement (Chrome desktop / Android peuvent l'autoriser)
   ['pointerup', 'touchend', 'mouseup', 'keydown', 'click'].forEach(ev => addEventListener(ev, () => startMusic(true), { passive: true }));
   document.addEventListener('visibilitychange', () => { if (!playing) return; document.hidden ? music.pause() : music.play().catch(() => {}); });
-  music.addEventListener('pause', () => document.getElementById('credit').classList.add('paused'));   // l'égaliseur s'arrête avec la musique
-  music.addEventListener('play', () => document.getElementById('credit').classList.remove('paused'));
+  /* L'égaliseur du crédit bat seulement quand on entend quelque chose : ni en pause, ni coupé */
+  const syncEq = () => document.getElementById('credit').classList.toggle('paused', music.paused || music.muted);
+  music.addEventListener('pause', syncEq);
+  music.addEventListener('play', syncEq);
+
+  /* ================= Bouton son (coupe / remet) =================
+     Coupe le son sans arrêter la lecture : les scènes restent calées sur le morceau et le son
+     revient exactement là où il en est. Le clic remonte aussi jusqu'à startMusic, sans effet
+     puisque la musique joue déjà. */
+  const mute = document.getElementById('mute');
+  mute.addEventListener('click', (e) => {
+    e.stopPropagation();
+    music.muted = !music.muted;
+    mute.classList.toggle('muted', music.muted);
+    mute.setAttribute('aria-pressed', String(music.muted));
+    mute.setAttribute('aria-label', music.muted ? 'Remettre le son' : 'Couper le son');
+    syncEq();
+  });
 
   /* ================= Aucune interaction : ni scroll, ni clic, ni zoom ================= */
   ['wheel', 'touchmove', 'contextmenu', 'gesturestart', 'keydown', 'dblclick'].forEach(ev =>
