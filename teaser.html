@@ -252,7 +252,7 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   #countdown .label { font: 800 clamp(.7rem, 2.6vw, .95rem)/1 'Rubik', sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--sky); }
-  .digits { display: flex; gap: clamp(8px, 2.5vw, 20px); align-items: flex-end; }
+  .digits { display: flex; gap: clamp(8px, 2.5vw, 20px); align-items: flex-start; }   /* tout part du haut : cases et « : » sur la même ligne */
   .unit { display: grid; place-items: center; gap: 4px; }
   .unit b {
     font: 400 clamp(1.7rem, 8vw, 3.4rem)/1 'Archivo Black', sans-serif; font-variant-numeric: tabular-nums;
@@ -263,7 +263,14 @@
   .unit b.tick { animation: tick .35s var(--ease-out); }
   @keyframes tick { from { transform: translateY(-.25em); opacity: .3; color: var(--orange); } }
   .unit small { font: 700 clamp(.55rem, 2vw, .7rem)/1 'Rubik', sans-serif; letter-spacing: .2em; text-transform: uppercase; opacity: .75; }
-  .digits .sep { font: 400 clamp(1.7rem, 8vw, 3.4rem)/1 'Archivo Black', sans-serif; padding-bottom: 1.1em; color: var(--pink); animation: blink 1s steps(2) infinite; }
+  /* Séparateur « : » : une boîte exactement de la hauteur d'une case (1em de chiffre + 2 × .12em de
+     padding + 2 × 1px de bordure, même police et même taille que .unit b), le glyphe centré dedans.
+     Si on change la taille ou le padding des cases, reporter ici. */
+  .digits .sep {
+    font: 400 clamp(1.7rem, 8vw, 3.4rem)/1 'Archivo Black', sans-serif; color: var(--pink);
+    height: calc(1em + .24em + 2px); display: grid; place-items: center;
+    animation: blink 1s steps(2) infinite;
+  }
   #countdown.open .digits { display: none; }
   #countdown.open .label { display: none; }
   #countdown .opened { display: none; font: 400 clamp(1.6rem, 8vw, 3rem)/1 'Archivo Black', sans-serif; text-transform: uppercase; }
