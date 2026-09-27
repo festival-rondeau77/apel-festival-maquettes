@@ -424,7 +424,10 @@
 
 <script>
   /* ================= RÉGLAGES ================= */
-  const OPEN_AT = new Date('2026-10-15T09:00:00+02:00'); // <-- date d'ouverture de l'appli / du site (à ajuster)
+  // Date d'ouverture de l'appli : samedi 7 novembre 2026 à 9 h, heure de Paris (+01:00 = heure d'hiver,
+  // en vigueur depuis le 25 octobre). Le compte à rebours affiché = cette date moins l'heure du téléphone
+  // du visiteur, recalculé chaque seconde. Passé la date : « C'est ouvert ! ».
+  const OPEN_AT = new Date('2026-11-07T09:00:00+01:00');
 
   const T = (n) => `<span class="ch" style="--i:${n}">`;
   const letters = (txt, cls, start = 0) => txt.split(' ').map((w, wi) =>
