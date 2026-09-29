@@ -43,6 +43,7 @@
     • Bouton son           → body, #mute (icône SVG : .body haut-parleur, .w1/.w2 ondes, .x barre « coupé ») ;
                              style dans « Bouton son » ; libellés aria dans le script « Bouton son »
     • Public visé / badge  → body, #overlays (.badge, .who)
+    • Compteur de visites  → dernière balise <script> avant </body> (Cloudflare Web Analytics, docs/analytics.md)
 
   LICENCE MUSIQUE
     Morceau de Dmitrii Spis, pris sur Pixabay (licence Pixabay Content License : usage libre, y compris
@@ -646,5 +647,9 @@
   ['wheel', 'touchmove', 'contextmenu', 'gesturestart', 'keydown', 'dblclick'].forEach(ev =>
     addEventListener(ev, e => e.preventDefault(), { passive: false }));
 </script>
+<!-- Compteur de visites Cloudflare Web Analytics (ticket analytics 01, docs/analytics.md) : site
+     « festival-rondeau77.github.io » de la console de festival@. Sans cookie. Pour le couper,
+     retirer cette balise. -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d3e67a9c050148cb8ef4dffc138548ef"}'></script>
 </body>
 </html>
